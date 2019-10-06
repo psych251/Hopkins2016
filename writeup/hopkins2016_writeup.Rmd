@@ -1,0 +1,107 @@
+---
+title: "Replication of 'The seductive allure is a reductive allure: People prefer scientificexplanations that contain logically irrelevant reductive information' by Hopkins, Weisberg, & Taylor (2016, Cognition)"
+author: "Aaron Chuey (chuey@stanford.edu)"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+---
+
+<!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
+
+##Introduction
+
+[My Github repository](https://github.com/psych251/hopkins2016)
+
+[The original paper](https://github.com/psych251/hopkins2016/tree/master/original_paper)
+
+###Motivation for Replication
+
+  Weisberg et al (2008) found that non-experts judged explanations of psychological phenomena as more satisfying when they contained irrelevant neuroscience information, coined “the seductive allure effect”. Hopkins, Weisberg, & Taylor (2016) embed this tendency within a more general preference for reductive information within explanations across scientific domains, what they call “the reductive allure effect”. While Hopkins and colleagues find some evidence to support this claim, their results are inconsistent across scientific domains and limited to poorly evaluated explanations. The robustness of the reductive allure effect has broad implications for the effect of complexity and level of detail on laypeople’s evaluation of explanations, a topic that greatly interests me.
+
+###Overview of Procedure, Stimuli, and Potential Challenges
+
+  Participants from Hopkins, Weisberg, & Taylor (2016) included both MTurkers and undergraduates; however, because the original effect was limited to MTurkers only, the current replication will be limited to just MTurkers. The experiment utilizes an explanation rating paradigm followed by a battery of cognitive tests. Participants are assigned to one of two conditions, which varied by the explanation level of included irrelevant information (horizontal or reductive). Participants then rated two explanations, one good and one bad, for each of six scientific domains one by one. Ratings were presented on a scale from very poor (-3) to very good (3). After the explanation rating task, participants completed a battery of tests measuring science literacy, reflective thinking, logical syllogisms, and perceptions of science.
+  The phenomena used in the explanation task were prescreened in a previous MTurk survey to be interesting to a majority of respondents. The explanations themselves were developed in conjunction with experts in respective scientific fields; thus, the explanations, along with the corresponding horizontal and reductive information, were validated by experts. All of these stimuli are included as supplementary materials with the manuscript. The main challenges of replicating this experiment include reproducing the counterbalancing and randomization scheme, the cognitive tests, and the exclusion criteria. While sufficiently documented, the latter two are not directly accessible from the original manuscript and may require contacting the authors for more information.
+
+
+##Methods
+
+###Power Analysis
+
+Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+
+###Planned Sample
+
+Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.
+
+###Materials
+
+All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+
+###Procedure	
+
+Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+
+###Analysis Plan
+
+Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+
+**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+
+###Differences from Original Study
+
+Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+
+### Methods Addendum (Post Data Collection)
+
+You can comment this section out prior to final report with data collection.
+
+#### Actual Sample
+  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+#### Differences from pre-data collection methods plan
+  Any differences from what was described as the original plan, or “none”.
+
+
+##Results
+
+
+### Data preparation
+
+Data preparation following the analysis plan.
+	
+```{r include=F}
+###Data Preparation
+
+####Load Relevant Libraries and Functions
+
+####Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+```
+
+### Confirmatory analysis
+
+The analyses as specified in the analysis plan.  
+
+*Side-by-side graph with original graph is ideal here*
+
+###Exploratory analyses
+
+Any follow-up analyses desired (not required).  
+
+## Discussion
+
+### Summary of Replication Attempt
+
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+
+### Commentary
+
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
