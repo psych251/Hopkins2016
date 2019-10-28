@@ -262,15 +262,44 @@ data_long$science <- ifelse(data_long$science=="Y", "psychology", data_long$scie
 data_long$science <- ifelse(data_long$science=="S", "social", data_long$science)
 
 colnames(data_long)[colnames(data_long)=="Condition"] <- "condition"
-data <- data_long
-print(data)
+print(data_long)
 ```
+
+```{r}
+#convert columns to intended data types for analysis
+data_long$rating <- as.integer(as.character(data_long$rating))
+data_long$science <- as.factor(as.character(data$science))
+data_long$quality <- as.factor(as.character(data$quality))
+data_long$science <- factor(data_long$science, 
+                  levels = c("physics", "chemistry", "biology", "neuroscience", "psychology", "social"),
+                  labels = c("physics", "chemistry", "biology", "neuroscience", "psychology", "social"))
+data_long$quality <- factor(data_long$quality, 
+                  levels = c("good", "bad"),
+                  labels = c("good", "bad"))
+data_long$condition <- factor(data_long$condition, 
+                  levels = c("H", "R"),
+                  labels = c("horizontal", "reduction"))
+print(data_long)
+```
+
 
 ### Confirmatory analysis
 
-
+```{r, eval=FALSE}
+#original data for reference
+original <- read.csv("~/Desktop/hopkins2016/data/original_hopkins2016_data.csv", header=TRUE)
+print(original)
+```
 
 ```{r}
+data <- data_long
+aov1 <- aov(data$rating ~ data$condition * data$quality * data$science)
+summary(aov1)
+```
+
+
+
+```{r, eval=FALSE}
 library(reshape2)
 library(lme4)
 library(gplots)
@@ -278,6 +307,8 @@ library(psych)
 library(effects)
 library(ppcor)
 library(car)
+
+data <- data_long
 
 #Reorder levels of the factors to facilitate contrast coding in regressions:
 data$science <- relevel(data$science, ref = "social")
