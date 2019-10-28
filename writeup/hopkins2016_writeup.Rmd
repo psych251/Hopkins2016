@@ -115,33 +115,389 @@ Data preparation following the analysis plan.
 	
 ```{r include=F}
 
-#Load Relevant Libraries and Functions
+#load libraries
+library(tidyverse)
+library(csv)
 
-#Read csv file
+```
 
-#Clean junk info off file
+```{r}
 
-#Filter out participants who fail attention checks
+#read data
+raw_data <- read.csv("~/Desktop/hopkins2016/data/hopkins2016_data.csv", header = TRUE)
 
-#Obtain mean explanation ratings
+#delete junk rows
+raw_data <- raw_data[-c(1),]
+raw_data <- raw_data[-c(1),]
 
-#Sum auxillary measures into individual socres
+#delete junk columns
+raw_data <- raw_data[, -c(1:18)]
 
+#total number of participants
+unfiltered_total <- raw_data %>%
+  nrow()
+
+#delete justification response columns
+raw_data <- raw_data %>%
+  select(-('P1.J.G.1':'S2.J.B.4'))
+
+raw_data <- raw_data %>%
+  select(-('P3.J.G.1':'S4.J.B.4'))
+
+
+```
+
+```{r}
+
+#exclude participants who failed attention check 1
+filtered_raw_data <- raw_data %>%
+  filter(Slider1_1==0 | Slider2A_1==0 | Slider2B_1==0)
+
+filtered_raw_data <- filtered_raw_data %>%
+  select(-(Slider1_1:Slider2B_1))
+
+
+#exclude participants who failed attention check 2
+filtered_raw_data <- filtered_raw_data %>%
+  filter(Att_1==3)
+
+filtered_raw_data <- filtered_raw_data %>%
+  select(-Att_1)
+
+#add participant numbers
+data_num <- filtered_raw_data %>%
+  mutate(ID = 1:nrow(filtered_raw_data))
+
+#total number of participants who passed attention checks
+filtered_total = filtered_raw_data %>%
+  nrow()
+
+#number of excluded participants
+num_excluded = unfiltered_total - filtered_total
+
+```
+
+```{r}
+#deleting this that could be included in the regression but are a pain to include for now
+data_num <- data_num %>%
+  select(-('Rigor_1':'Prestige_9'))
+data_num <- data_num %>%
+  select(-('Year':'Feedback'))
+
+```
+
+```{r}
+
+#create reference data frame to score supplementary answers
+correct_answers <- read.csv("~/Desktop/hopkins2016/data/correct_answers.csv", header = TRUE)
+
+```
+
+```{r}
+#score science literacy answers
+data_num$expdesgn2 <- data_num$expdesgn1
+
+for (item in names(correct_answers))
+{
+  item_string <- toString(item)
+  participant_answer <- data_num[[item_string]]
+  correct_answer <- correct_answers[[item_string]][1]
+  data_num[[item_string]] <- ifelse(participant_answer==correct_answer, 1, 0)
+}
+
+```
+
+```{r}
+#aggregate scores
+
+#nsf
+data_num <- data_num %>%
+  mutate(nsf.score = (odds1 + odds2 + expdesgn1 + expdesgn2 + hotcore + radioact + boyorgirl + lasers + electron + viruses + bigbang + condrift + evolved + earthsun + solarrev))
+
+#logic
+data_num <- data_num %>%
+  mutate(logic.score = (Logic1 + Logic2 + Logic3 + Logic4))
+
+#CRT
+data_num <- data_num %>%
+  mutate(crt.score = (CRT1 + CRT2 + CRT3 + CRT4))
+
+#delete individual item columns
+data_num <- data_num %>%
+  select(-('odds1':'Logic4'))
+
+data_num <- data_num %>%
+  select(-('CRT1':'CRT4'))
+
+```
+
+```{r}
+#convert to long format
+data_long <- data_num %>%
+  pivot_longer(cols = 'P1.HG_1':'S4.RB_1', names_to = "full_item", values_to = "rating", values_drop_na=TRUE)
+
+#get rid of empty rows
+data_long <- data_long %>%
+  filter(!(rating==''))
+
+#specify item attributes
+data_long <- data_long %>%
+  mutate(science = substr(full_item, start=1, stop=1))
+
+data_long <- data_long %>%
+  mutate(item = substr(full_item, start=1, stop=2))
+
+data_long <- data_long %>%
+  mutate(quality = substr(full_item, start=5, stop=5))
+  
+data_long <- data_long %>%
+  select(-full_item)
+
+data_long$quality <- ifelse(data_long$quality=="G", "good", "bad")
+data_long$science <- ifelse(data_long$science=="P", "physics", data_long$science)
+data_long$science <- ifelse(data_long$science=="C", "chemistry", data_long$science)
+data_long$science <- ifelse(data_long$science=="B", "biology", data_long$science)
+data_long$science <- ifelse(data_long$science=="N", "neuroscience", data_long$science)
+data_long$science <- ifelse(data_long$science=="Y", "psychology", data_long$science)
+data_long$science <- ifelse(data_long$science=="S", "social", data_long$science)
+
+colnames(data_long)[colnames(data_long)=="Condition"] <- "condition"
+data <- data_long
+print(data)
 ```
 
 ### Confirmatory analysis
 
-```{r, include=F}
 
-#Load relevent libraries
 
-#input parameters into mixed-effects linear regression model
+```{r}
+library(reshape2)
+library(lme4)
+library(gplots)
+library(psych)
+library(effects)
+library(ppcor)
+library(car)
 
-#Run regression
+#Reorder levels of the factors to facilitate contrast coding in regressions:
+data$science <- relevel(data$science, ref = "social")
+data$science <- relevel(data$science, ref = "psychology")
+data$science <- relevel(data$science, ref = "neuroscience")
+data$science <- relevel(data$science, ref = "biology")
+data$science <- relevel(data$science, ref = "chemistry")
+data$science <- relevel(data$science, ref = "physics")
 
-#Obtain bootstrapped confidence intervals
+explanations <- lmer(rating ~ (quality+condition+science)^2 + quality:condition + (1 | ID) + (quality | item), data = data)
+summary(explanations)
+```
 
-#Run individual linear regressions for each auxillary measure
+
+
+```{r, eval=FALSE}
+
+#Load packages
+library(reshape2)
+library(lme4)
+library(gplots)
+library(psych)
+library(effects)
+library(ppcor)
+library(car)
+
+
+#Read in and format data
+
+#Reorder levels of the factors to facilitate contrast coding in regressions:
+data$science <- relevel(data$science, ref = "social")
+data$science <- relevel(data$science, ref = "psychology")
+data$science <- relevel(data$science, ref = "neuroscience")
+data$science <- relevel(data$science, ref = "biology")
+data$science <- relevel(data$science, ref = "chemistry")
+data$science <- relevel(data$science, ref = "physics")
+
+mturk$sample <- rep("mturk", length(mturk$ID))
+
+#Backward difference coding; each level is compared to the mean of the one before it 
+contrasts(data$quality) <- matrix(c(-1/2,1/2), nrow=2)
+contrasts(data$condition) <- matrix(c(-1/2,1/2), nrow=2)
+contrasts(data$sample) <- matrix(c(-1/2,1/2), nrow=2)
+
+#Deviation coding: each level is compared to the grand mean (physics is in the intercept)
+contrasts(data$science) <- matrix(c(-1,1,0,0,0,0,-1,0,1,0,0,0,-1,0,0,1,0,0,-1,0,0,0,1,0,-1,0,0,0,0,1), nrow=6)
+#########################################################
+#Results - Table 2
+
+explanations <- lmer(rating ~ (quality+condition+science)^2 + quality:condition + (1 | ID) + (quality | item), data = combined)
+summary(explanations)
+confint(explanations, method="boot", level = .90)
+confint(explanations, method="boot", level = .95)
+
+#########################################################
+#Analyses by science - Table 3
+
+phys <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="phys"))
+summary(phys)
+confint(phys, method = "boot")
+
+chem <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="chem"))
+summary(chem)
+confint(chem, method="boot")
+
+bio <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="bio"))
+summary(bio)
+confint(bio, method="boot")
+
+neuro <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="neuro"))
+summary(neuro)
+confint(neuro, method = "boot")
+
+psych <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="psych"))
+summary(psych)
+confint(psych, method="boot")
+
+soc <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="soc"))
+summary(soc)
+confint(soc, method = "boot")
+
+#########################################################
+#Sample and Quality Interactions
+
+with(combined, tapply(rating, sample, mean))
+with(combined, tapply(rating, sample, sd))
+
+#Sample x Quality x Condition interaction - separate analyses by sample:
+summary(mturk.lmer <- lmer(rating~quality*condition + (1 | ID) + (quality | item), data = subset(combined, sample=="mturk")))
+confint(mturk.lmer, method = "boot")
+
+summary(psych.lmer <- lmer(rating~quality*condition + (1 | ID) + (quality | item), data = subset(combined, sample=="psych")))
+confint(psych.lmer, method = "boot")
+
+######################################################################################################
+#Justifications
+just <- read.csv("Justifications.csv")
+
+#References to reduction
+prop.table(table(just$mentions.reduction, groups = just$sample),2)
+summary(reduction <- glmer(mentions.reduction~sample + (1 | ID), data = just, family = "binomial"))
+
+reduction.se <- sqrt(diag(vcov(reduction)))
+(reduction.oddsratio <- exp(cbind(Est = fixef(reduction), LL = fixef(reduction) - 1.96 * reduction.se, UL = fixef(reduction) + 1.96 * reduction.se)))
+
+#Changes in understanding
+
+#Convert understanding to a binary - 1 if understanding improved, 0 if it didn't change or got worse
+just$understand.bin <- rep(0, length(just$understand))
+just$understand.bin[just$understand>0] <- 1
+
+summary(understand <- glmer(understand.bin~quality+rating + (1 | ID), data = just, family = "binomial"))
+
+understand.se <- sqrt(diag(vcov(understand)))
+(understand.oddsratio <- exp(cbind(Est = fixef(understand), LL = fixef(understand) - 1.96 * understand.se, UL = fixef(understand) + 1.96 * understand.se)))
+
+#####################################################################################################
+#Additional Measures
+
+#Compute difference scores
+for(i in 1:max(combined$ID)){
+	combined$good.avg[combined$ID==i] <- mean(combined$rating[combined$quality=="good"&combined$ID==i])	
+	combined$bad.avg[combined$ID==i] <- mean(combined$rating[combined$quality=="bad"&combined$ID==i])
+	combined$diff <- combined$good.avg - combined$bad.avg
+	}
+	
+#Reduce data frame to 1 row per participant:
+combined.discr <- combined[order(combined$ID),]
+combined.discr <- combined.discr[seq(1,length(combined.discr$ID), 12),]	
+	
+
+#Are additional measures correlated with each other?
+variables <- with(combined.discr, cbind(logic.score, crt.score, nsf.score, diff))
+
+n.var <- dim(variables)[2]
+cor.p <- matrix(nrow = n.var, ncol = n.var)
+rownames(cor.p) <- colnames(variables)
+colnames(cor.p) <- colnames(variables)
+for(i in 1:n.var){
+	for(j in 1:n.var){
+		cor.p[i,j] <- cor.test(variables[,i], variables[,j])$p.value}}
+
+#Table ``
+cor(variables, use = "pairwise.complete.obs")
+#Significance testing - alpha adjusted for multiple comparisons
+cor.p<(.05/((n.var-1)*(n.var)/2))
+
+
+#Coursework
+#Total number of sciences in which courses were taken
+combined.discr$courses.science <- rowSums(combined.discr[,c("courses.phys", "courses.chem", "courses.bio", "courses.neuro", "courses.psych", "courses.soc")])
+summary(lm(diff ~ courses.science, combined.discr))
+
+#Philosophy classes
+with(combined.discr, t.test(logic.score~courses.phil, var.equal = TRUE))
+summary(lm(diff ~ courses.phil, combined.discr))
+
+
+#Perceptions of Science
+
+#Social science - took average of ratings of econ, poli sci, and sociology
+combined.discr$attitude.soc.avg <- rowMeans(combined.discr[,c("attitude.socio", "attitude.econ", "attitude.polisci")], na.rm = TRUE)
+
+with(combined.discr, t.test(attitude.phys, attitude.chem, paired = TRUE, var.equal = TRUE))#d = .292
+with(combined.discr, t.test(attitude.chem, attitude.bio, paired = TRUE, var.equal = TRUE))#d = .353
+with(combined.discr, t.test(attitude.bio, attitude.neuro, paired = TRUE, var.equal = TRUE))#d = .707
+with(combined.discr, t.test(attitude.neuro, attitude.psych, paired = TRUE, var.equal = TRUE))#d=1.753
+with(combined.discr, t.test(attitude.psych, attitude.soc.avg, paired = TRUE, var.equal = TRUE))#d=.270
+
+######################################################################################################
+#Item Analyses
+
+#Good vs. bad - Is bad item circular?
+#1 = circular, 0 = not circular
+
+combined$circular <- rep(NA, length(combined$ID))
+combined$circular[combined$item=="phys.3"] <- 1
+combined$circular[combined$item=="chem.2"] <- 1
+combined$circular[combined$item=="bio.3"] <- 1
+combined$circular[combined$item=="bio.4"] <- 1
+combined$circular[combined$item=="psych.1"] <- 1
+combined$circular[combined$item=="psych.2"] <- 1
+combined$circular[combined$item=="psych.3"] <- 1
+combined$circular[combined$item=="psych.4"] <- 1
+combined$circular[combined$item=="phys.4"] <- 1
+combined$circular[combined$item=="soc.1"] <- 1
+combined$circular[combined$item=="soc.3"] <- 1
+combined$circular[is.na(combined$circular)] <- 0
+combined$circular <- factor(combined$circular)
+
+summary(circular <- lmer(rating~condition*quality*circular + (1 | ID), data = combined))
+confint(circular, method="boot", level = .95)
+
+#Controlling for circularity in main regression:
+summary(lmer(rating ~ circular + (sample+quality+condition+science)^2 + sample:quality:condition + (1 | ID) + (quality | item), data = combined))
+
+#Horizontal vs. reductive - Is reductive information central to the explanation?
+#1 = central, 0 = peripheral
+
+combined$central <- rep(NA, length(combined$ID))
+combined$central[combined$item=="chem.2"] <- 0
+combined$central[combined$item=="chem.4"] <- 0
+combined$central[combined$item=="bio.1"] <- 0
+combined$central[combined$item=="bio.2"] <- 0
+combined$central[combined$item=="bio.3"] <- 0
+combined$central[combined$item=="bio.4"] <- 0
+combined$central[combined$item=="neuro.2"] <- 0
+combined$central[combined$item=="psych.1"] <- 0
+combined$central[combined$item=="psych.4"] <- 0
+combined$central[is.na(combined$central)] <- 1
+combined$central <- factor(combined$central)
+
+summary(central <- lmer(rating ~ condition*quality*central + (1 | ID), data = combined))
+confint(central, method="boot")
+
+summary(central.bad <- lmer(rating ~ condition*central + (1 | ID), data = subset(combined, quality=="bad")))
+summary(central.bad <- lmer(rating ~ condition*central + (1 | ID), data = subset(combined, quality=="good")))
+
+#Controlling for centrality in main regression:
+summary(lmer(rating ~ central + (sample+quality+condition+science)^2 + sample:quality:condition + (1 | ID) + (quality | item), data = combined))
 ```
 
 *Side-by-side graph with original graph is ideal here*
