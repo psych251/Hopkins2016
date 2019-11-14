@@ -12,7 +12,7 @@
 
 <meta name="author" content="Aaron Chuey (chuey@stanford.edu)" />
 
-<meta name="date" content="2019-10-20" />
+<meta name="date" content="2019-10-27" />
 
 <title>Replication of ‘The seductive allure is a reductive allure: People prefer scientificexplanations that contain logically irrelevant reductive information’ by Hopkins, Weisberg, &amp; Taylor (2016, Cognition)</title>
 
@@ -1512,7 +1512,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Replication of ‘The seductive allure is a reductive allure: People prefer scientificexplanations that contain logically irrelevant reductive information’ by Hopkins, Weisberg, &amp; Taylor (2016, Cognition)</h1>
 <h4 class="author">Aaron Chuey (<a href="mailto:chuey@stanford.edu" class="email">chuey@stanford.edu</a>)</h4>
-<h4 class="date">October 20, 2019</h4>
+<h4 class="date">October 27, 2019</h4>
 
 </div>
 
@@ -1521,6 +1521,7 @@ div.tocify {
 <p>##Introduction</p>
 <p><a href="https://github.com/psych251/hopkins2016">My Github repository</a></p>
 <p><a href="https://github.com/psych251/hopkins2016/tree/master/original_paper">The original paper</a></p>
+<p><a href="https://stanforduniversity.qualtrics.com/jfe/form/SV_ex4dv8CdaDj2VvL">Link to pilot survey</a></p>
 <p>###Motivation for Replication</p>
 <p>Weisberg et al (2008) found that non-experts judged explanations of psychological phenomena as more satisfying when they contained irrelevant neuroscience information, coined “the seductive allure effect”. Hopkins, Weisberg, &amp; Taylor (2016) embed this tendency within a more general preference for reductive information within explanations across scientific domains, what they call “the reductive allure effect”. While Hopkins and colleagues find some evidence to support this claim, their results are inconsistent across scientific domains and limited to poorly evaluated explanations. The robustness of the reductive allure effect has broad implications for the effect of complexity and level of detail on laypeople’s evaluation of explanations, a topic that greatly interests me.</p>
 <p>###Overview of Procedure, Stimuli, and Potential Challenges</p>
@@ -1568,9 +1569,351 @@ div.tocify {
 <div id="data-preparation" class="section level3">
 <h3>Data preparation</h3>
 <p>Data preparation following the analysis plan.</p>
+<pre class="r"><code>#read data
+raw_data &lt;- read.csv(&quot;~/Desktop/hopkins2016/data/hopkins2016_data.csv&quot;, header = TRUE)
+
+#delete junk rows
+raw_data &lt;- raw_data[-c(1),]
+raw_data &lt;- raw_data[-c(1),]
+
+#delete junk columns
+raw_data &lt;- raw_data[, -c(1:18)]
+
+#total number of participants
+unfiltered_total &lt;- raw_data %&gt;%
+  nrow()
+
+#delete justification response columns
+raw_data &lt;- raw_data %&gt;%
+  select(-('P1.J.G.1':'S2.J.B.4'))
+
+raw_data &lt;- raw_data %&gt;%
+  select(-('P3.J.G.1':'S4.J.B.4'))</code></pre>
+<pre class="r"><code>#exclude participants who failed attention check 1
+filtered_raw_data &lt;- raw_data %&gt;%
+  filter(Slider1_1==0 | Slider2A_1==0 | Slider2B_1==0)
+
+filtered_raw_data &lt;- filtered_raw_data %&gt;%
+  select(-(Slider1_1:Slider2B_1))
+
+
+#exclude participants who failed attention check 2
+filtered_raw_data &lt;- filtered_raw_data %&gt;%
+  filter(Att_1==3)
+
+filtered_raw_data &lt;- filtered_raw_data %&gt;%
+  select(-Att_1)
+
+#add participant numbers
+data_num &lt;- filtered_raw_data %&gt;%
+  mutate(ID = 1:nrow(filtered_raw_data))
+
+#total number of participants who passed attention checks
+filtered_total = filtered_raw_data %&gt;%
+  nrow()
+
+#number of excluded participants
+num_excluded = unfiltered_total - filtered_total</code></pre>
+<pre class="r"><code>#deleting this that could be included in the regression but are a pain to include for now
+data_num &lt;- data_num %&gt;%
+  select(-('Rigor_1':'Prestige_9'))
+data_num &lt;- data_num %&gt;%
+  select(-('Year':'Feedback'))</code></pre>
+<pre class="r"><code>#create reference data frame to score supplementary answers
+correct_answers &lt;- read.csv(&quot;~/Desktop/hopkins2016/data/correct_answers.csv&quot;, header = TRUE)</code></pre>
+<pre><code>## Warning in read.table(file = file, header = header, sep = sep, quote =
+## quote, : incomplete final line found by readTableHeader on '~/Desktop/
+## hopkins2016/data/correct_answers.csv'</code></pre>
+<pre class="r"><code>#score science literacy answers
+data_num$expdesgn2 &lt;- data_num$expdesgn1
+
+for (item in names(correct_answers))
+{
+  item_string &lt;- toString(item)
+  participant_answer &lt;- data_num[[item_string]]
+  correct_answer &lt;- correct_answers[[item_string]][1]
+  data_num[[item_string]] &lt;- ifelse(participant_answer==correct_answer, 1, 0)
+}</code></pre>
+<pre class="r"><code>#aggregate scores
+
+#nsf
+data_num &lt;- data_num %&gt;%
+  mutate(nsf.score = (odds1 + odds2 + expdesgn1 + expdesgn2 + hotcore + radioact + boyorgirl + lasers + electron + viruses + bigbang + condrift + evolved + earthsun + solarrev))
+
+#logic
+data_num &lt;- data_num %&gt;%
+  mutate(logic.score = (Logic1 + Logic2 + Logic3 + Logic4))
+
+#CRT
+data_num &lt;- data_num %&gt;%
+  mutate(crt.score = (CRT1 + CRT2 + CRT3 + CRT4))
+
+#delete individual item columns
+data_num &lt;- data_num %&gt;%
+  select(-('odds1':'Logic4'))
+
+data_num &lt;- data_num %&gt;%
+  select(-('CRT1':'CRT4'))</code></pre>
+<pre class="r"><code>#convert to long format
+data_long &lt;- data_num %&gt;%
+  pivot_longer(cols = 'P1.HG_1':'S4.RB_1', names_to = &quot;full_item&quot;, values_to = &quot;rating&quot;, values_drop_na=TRUE)
+
+#get rid of empty rows
+data_long &lt;- data_long %&gt;%
+  filter(!(rating==''))
+
+#specify item attributes
+data_long &lt;- data_long %&gt;%
+  mutate(science = substr(full_item, start=1, stop=1))
+
+data_long &lt;- data_long %&gt;%
+  mutate(item = substr(full_item, start=1, stop=2))
+
+data_long &lt;- data_long %&gt;%
+  mutate(quality = substr(full_item, start=5, stop=5))
+  
+data_long &lt;- data_long %&gt;%
+  select(-full_item)
+
+data_long$quality &lt;- ifelse(data_long$quality==&quot;G&quot;, &quot;good&quot;, &quot;bad&quot;)
+data_long$science &lt;- ifelse(data_long$science==&quot;P&quot;, &quot;physics&quot;, data_long$science)
+data_long$science &lt;- ifelse(data_long$science==&quot;C&quot;, &quot;chemistry&quot;, data_long$science)
+data_long$science &lt;- ifelse(data_long$science==&quot;B&quot;, &quot;biology&quot;, data_long$science)
+data_long$science &lt;- ifelse(data_long$science==&quot;N&quot;, &quot;neuroscience&quot;, data_long$science)
+data_long$science &lt;- ifelse(data_long$science==&quot;Y&quot;, &quot;psychology&quot;, data_long$science)
+data_long$science &lt;- ifelse(data_long$science==&quot;S&quot;, &quot;social&quot;, data_long$science)
+
+colnames(data_long)[colnames(data_long)==&quot;Condition&quot;] &lt;- &quot;condition&quot;</code></pre>
+<pre class="r"><code>#convert columns to intended data types for analysis
+data_long$rating &lt;- as.integer(as.character(data_long$rating))
+#data_long$science &lt;- as.factor(as.character(data$science))
+#data_long$quality &lt;- as.factor(as.character(data$quality))
+data_long$science &lt;- factor(data_long$science, 
+                  levels = c(&quot;physics&quot;, &quot;chemistry&quot;, &quot;biology&quot;, &quot;neuroscience&quot;, &quot;psychology&quot;, &quot;social&quot;),
+                  labels = c(&quot;physics&quot;, &quot;chemistry&quot;, &quot;biology&quot;, &quot;neuroscience&quot;, &quot;psychology&quot;, &quot;social&quot;))
+data_long$quality &lt;- factor(data_long$quality, 
+                  levels = c(&quot;good&quot;, &quot;bad&quot;),
+                  labels = c(&quot;good&quot;, &quot;bad&quot;))
+data_long$condition &lt;- factor(data_long$condition, 
+                  levels = c(&quot;H&quot;, &quot;R&quot;),
+                  labels = c(&quot;horizontal&quot;, &quot;reduction&quot;))</code></pre>
 </div>
 <div id="confirmatory-analysis" class="section level3">
 <h3>Confirmatory analysis</h3>
+<pre class="r"><code>data &lt;- data_long
+aov1 &lt;- aov(data$rating ~ data$condition * data$quality * data$science)
+summary(aov1)</code></pre>
+<pre><code>##                                          Df Sum Sq Mean Sq
+## data$condition                            1   1.50    1.50
+## data$quality                              1  32.67   32.67
+## data$science                              5  16.33    3.27
+## data$condition:data$quality               1   0.67    0.67
+## data$condition:data$science               5   6.00    1.20
+## data$quality:data$science                 5  15.83    3.17
+## data$condition:data$quality:data$science  5  18.83    3.77</code></pre>
+<pre class="r"><code>#Load packages
+library(reshape2)
+library(lme4)
+library(gplots)
+library(psych)
+library(effects)
+library(ppcor)
+library(car)
+
+
+#Read in and format data
+
+#Reorder levels of the factors to facilitate contrast coding in regressions:
+data$science &lt;- relevel(data$science, ref = &quot;social&quot;)
+data$science &lt;- relevel(data$science, ref = &quot;psychology&quot;)
+data$science &lt;- relevel(data$science, ref = &quot;neuroscience&quot;)
+data$science &lt;- relevel(data$science, ref = &quot;biology&quot;)
+data$science &lt;- relevel(data$science, ref = &quot;chemistry&quot;)
+data$science &lt;- relevel(data$science, ref = &quot;physics&quot;)
+
+mturk$sample &lt;- rep(&quot;mturk&quot;, length(mturk$ID))
+
+#Backward difference coding; each level is compared to the mean of the one before it 
+contrasts(data$quality) &lt;- matrix(c(-1/2,1/2), nrow=2)
+contrasts(data$condition) &lt;- matrix(c(-1/2,1/2), nrow=2)
+contrasts(data$sample) &lt;- matrix(c(-1/2,1/2), nrow=2)
+
+#Deviation coding: each level is compared to the grand mean (physics is in the intercept)
+contrasts(data$science) &lt;- matrix(c(-1,1,0,0,0,0,-1,0,1,0,0,0,-1,0,0,1,0,0,-1,0,0,0,1,0,-1,0,0,0,0,1), nrow=6)
+#########################################################
+#Results - Table 2
+
+explanations &lt;- lmer(rating ~ (quality+condition+science)^2 + quality:condition + (1 | ID) + (quality | item), data = combined)
+summary(explanations)
+confint(explanations, method=&quot;boot&quot;, level = .90)
+confint(explanations, method=&quot;boot&quot;, level = .95)
+
+#########################################################
+#Analyses by science - Table 3
+
+phys &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science==&quot;phys&quot;))
+summary(phys)
+confint(phys, method = &quot;boot&quot;)
+
+chem &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science==&quot;chem&quot;))
+summary(chem)
+confint(chem, method=&quot;boot&quot;)
+
+bio &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science==&quot;bio&quot;))
+summary(bio)
+confint(bio, method=&quot;boot&quot;)
+
+neuro &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science==&quot;neuro&quot;))
+summary(neuro)
+confint(neuro, method = &quot;boot&quot;)
+
+psych &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science==&quot;psych&quot;))
+summary(psych)
+confint(psych, method=&quot;boot&quot;)
+
+soc &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science==&quot;soc&quot;))
+summary(soc)
+confint(soc, method = &quot;boot&quot;)
+
+#########################################################
+#Sample and Quality Interactions
+
+with(combined, tapply(rating, sample, mean))
+with(combined, tapply(rating, sample, sd))
+
+#Sample x Quality x Condition interaction - separate analyses by sample:
+summary(mturk.lmer &lt;- lmer(rating~quality*condition + (1 | ID) + (quality | item), data = subset(combined, sample==&quot;mturk&quot;)))
+confint(mturk.lmer, method = &quot;boot&quot;)
+
+summary(psych.lmer &lt;- lmer(rating~quality*condition + (1 | ID) + (quality | item), data = subset(combined, sample==&quot;psych&quot;)))
+confint(psych.lmer, method = &quot;boot&quot;)
+
+######################################################################################################
+#Justifications
+just &lt;- read.csv(&quot;Justifications.csv&quot;)
+
+#References to reduction
+prop.table(table(just$mentions.reduction, groups = just$sample),2)
+summary(reduction &lt;- glmer(mentions.reduction~sample + (1 | ID), data = just, family = &quot;binomial&quot;))
+
+reduction.se &lt;- sqrt(diag(vcov(reduction)))
+(reduction.oddsratio &lt;- exp(cbind(Est = fixef(reduction), LL = fixef(reduction) - 1.96 * reduction.se, UL = fixef(reduction) + 1.96 * reduction.se)))
+
+#Changes in understanding
+
+#Convert understanding to a binary - 1 if understanding improved, 0 if it didn't change or got worse
+just$understand.bin &lt;- rep(0, length(just$understand))
+just$understand.bin[just$understand&gt;0] &lt;- 1
+
+summary(understand &lt;- glmer(understand.bin~quality+rating + (1 | ID), data = just, family = &quot;binomial&quot;))
+
+understand.se &lt;- sqrt(diag(vcov(understand)))
+(understand.oddsratio &lt;- exp(cbind(Est = fixef(understand), LL = fixef(understand) - 1.96 * understand.se, UL = fixef(understand) + 1.96 * understand.se)))
+
+#####################################################################################################
+#Additional Measures
+
+#Compute difference scores
+for(i in 1:max(combined$ID)){
+    combined$good.avg[combined$ID==i] &lt;- mean(combined$rating[combined$quality==&quot;good&quot;&amp;combined$ID==i]) 
+    combined$bad.avg[combined$ID==i] &lt;- mean(combined$rating[combined$quality==&quot;bad&quot;&amp;combined$ID==i])
+    combined$diff &lt;- combined$good.avg - combined$bad.avg
+    }
+    
+#Reduce data frame to 1 row per participant:
+combined.discr &lt;- combined[order(combined$ID),]
+combined.discr &lt;- combined.discr[seq(1,length(combined.discr$ID), 12),] 
+    
+
+#Are additional measures correlated with each other?
+variables &lt;- with(combined.discr, cbind(logic.score, crt.score, nsf.score, diff))
+
+n.var &lt;- dim(variables)[2]
+cor.p &lt;- matrix(nrow = n.var, ncol = n.var)
+rownames(cor.p) &lt;- colnames(variables)
+colnames(cor.p) &lt;- colnames(variables)
+for(i in 1:n.var){
+    for(j in 1:n.var){
+        cor.p[i,j] &lt;- cor.test(variables[,i], variables[,j])$p.value}}
+
+#Table ``
+cor(variables, use = &quot;pairwise.complete.obs&quot;)
+#Significance testing - alpha adjusted for multiple comparisons
+cor.p&lt;(.05/((n.var-1)*(n.var)/2))
+
+
+#Coursework
+#Total number of sciences in which courses were taken
+combined.discr$courses.science &lt;- rowSums(combined.discr[,c(&quot;courses.phys&quot;, &quot;courses.chem&quot;, &quot;courses.bio&quot;, &quot;courses.neuro&quot;, &quot;courses.psych&quot;, &quot;courses.soc&quot;)])
+summary(lm(diff ~ courses.science, combined.discr))
+
+#Philosophy classes
+with(combined.discr, t.test(logic.score~courses.phil, var.equal = TRUE))
+summary(lm(diff ~ courses.phil, combined.discr))
+
+
+#Perceptions of Science
+
+#Social science - took average of ratings of econ, poli sci, and sociology
+combined.discr$attitude.soc.avg &lt;- rowMeans(combined.discr[,c(&quot;attitude.socio&quot;, &quot;attitude.econ&quot;, &quot;attitude.polisci&quot;)], na.rm = TRUE)
+
+with(combined.discr, t.test(attitude.phys, attitude.chem, paired = TRUE, var.equal = TRUE))#d = .292
+with(combined.discr, t.test(attitude.chem, attitude.bio, paired = TRUE, var.equal = TRUE))#d = .353
+with(combined.discr, t.test(attitude.bio, attitude.neuro, paired = TRUE, var.equal = TRUE))#d = .707
+with(combined.discr, t.test(attitude.neuro, attitude.psych, paired = TRUE, var.equal = TRUE))#d=1.753
+with(combined.discr, t.test(attitude.psych, attitude.soc.avg, paired = TRUE, var.equal = TRUE))#d=.270
+
+######################################################################################################
+#Item Analyses
+
+#Good vs. bad - Is bad item circular?
+#1 = circular, 0 = not circular
+
+combined$circular &lt;- rep(NA, length(combined$ID))
+combined$circular[combined$item==&quot;phys.3&quot;] &lt;- 1
+combined$circular[combined$item==&quot;chem.2&quot;] &lt;- 1
+combined$circular[combined$item==&quot;bio.3&quot;] &lt;- 1
+combined$circular[combined$item==&quot;bio.4&quot;] &lt;- 1
+combined$circular[combined$item==&quot;psych.1&quot;] &lt;- 1
+combined$circular[combined$item==&quot;psych.2&quot;] &lt;- 1
+combined$circular[combined$item==&quot;psych.3&quot;] &lt;- 1
+combined$circular[combined$item==&quot;psych.4&quot;] &lt;- 1
+combined$circular[combined$item==&quot;phys.4&quot;] &lt;- 1
+combined$circular[combined$item==&quot;soc.1&quot;] &lt;- 1
+combined$circular[combined$item==&quot;soc.3&quot;] &lt;- 1
+combined$circular[is.na(combined$circular)] &lt;- 0
+combined$circular &lt;- factor(combined$circular)
+
+summary(circular &lt;- lmer(rating~condition*quality*circular + (1 | ID), data = combined))
+confint(circular, method=&quot;boot&quot;, level = .95)
+
+#Controlling for circularity in main regression:
+summary(lmer(rating ~ circular + (sample+quality+condition+science)^2 + sample:quality:condition + (1 | ID) + (quality | item), data = combined))
+
+#Horizontal vs. reductive - Is reductive information central to the explanation?
+#1 = central, 0 = peripheral
+
+combined$central &lt;- rep(NA, length(combined$ID))
+combined$central[combined$item==&quot;chem.2&quot;] &lt;- 0
+combined$central[combined$item==&quot;chem.4&quot;] &lt;- 0
+combined$central[combined$item==&quot;bio.1&quot;] &lt;- 0
+combined$central[combined$item==&quot;bio.2&quot;] &lt;- 0
+combined$central[combined$item==&quot;bio.3&quot;] &lt;- 0
+combined$central[combined$item==&quot;bio.4&quot;] &lt;- 0
+combined$central[combined$item==&quot;neuro.2&quot;] &lt;- 0
+combined$central[combined$item==&quot;psych.1&quot;] &lt;- 0
+combined$central[combined$item==&quot;psych.4&quot;] &lt;- 0
+combined$central[is.na(combined$central)] &lt;- 1
+combined$central &lt;- factor(combined$central)
+
+summary(central &lt;- lmer(rating ~ condition*quality*central + (1 | ID), data = combined))
+confint(central, method=&quot;boot&quot;)
+
+summary(central.bad &lt;- lmer(rating ~ condition*central + (1 | ID), data = subset(combined, quality==&quot;bad&quot;)))
+summary(central.bad &lt;- lmer(rating ~ condition*central + (1 | ID), data = subset(combined, quality==&quot;good&quot;)))
+
+#Controlling for centrality in main regression:
+summary(lmer(rating ~ central + (sample+quality+condition+science)^2 + sample:quality:condition + (1 | ID) + (quality | item), data = combined))</code></pre>
 <p><em>Side-by-side graph with original graph is ideal here</em></p>
 <p>###Exploratory analyses</p>
 <p>Any follow-up analyses desired (not required).</p>
