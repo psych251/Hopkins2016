@@ -22,12 +22,12 @@ output:
 
 ###Motivation for Replication
 
-  Weisberg et al (2008) found that non-experts judged explanations of psychological phenomena as more satisfying when they contained irrelevant neuroscience information, coined “the seductive allure effect”. Hopkins, Weisberg, & Taylor (2016) embed this tendency within a more general preference for reductive information within explanations across scientific domains, what they call “the reductive allure effect”. While Hopkins and colleagues find some evidence to support this claim, their results are inconsistent across scientific domains and limited to poorly evaluated explanations. The robustness of the reductive allure effect has broad implications for the effect of complexity and level of detail on laypeople’s evaluation of explanations, a topic that greatly interests me.
+  Weisberg et al (2008) found that non-experts judged explanations of psychological phenomena more satisfying when they contained irrelevant neuroscience information, coined “the seductive allure effect”. Hopkins, Weisberg, & Taylor (2016) embed this tendency within a more general preference for reductive information within explanations across scientific domains, what they call “the reductive allure effect”. While Hopkins and colleagues find some evidence to support this claim, their results are inconsistent across scientific domains and limited to poorly evaluated explanations. The robustness of the reductive allure effect has broad implications for the effect of complexity and level of detail on laypeople’s evaluation of explanations, a topic that greatly interests me.
 
 ###Overview of Procedure, Stimuli, and Potential Challenges
 
   Participants from Hopkins, Weisberg, & Taylor (2016) included both MTurkers and undergraduates; however, because the original effect was limited to MTurkers only, the current replication will be limited to just MTurkers. The experiment utilizes an explanation rating paradigm followed by a battery of cognitive tests. Participants are assigned to one of two conditions, which varied by the explanation level of included irrelevant information (horizontal or reductive). Participants then rated two explanations, one good and one bad, for each of six scientific domains one by one. Ratings were presented on a scale from very poor (-3) to very good (3). After the explanation rating task, participants completed a battery of tests measuring science literacy, reflective thinking, logical syllogisms, and perceptions of science.
-  The phenomena used in the explanation task were prescreened in a previous MTurk survey to be interesting to a majority of respondents. The explanations themselves were developed in conjunction with experts in respective scientific fields; thus, the explanations, along with the corresponding horizontal and reductive information, were validated by experts. All of these stimuli are included as supplementary materials with the manuscript. The main challenges of replicating this experiment include reproducing the counterbalancing and randomization scheme, the cognitive tests, and the exclusion criteria. While sufficiently documented, the latter two are not directly accessible from the original manuscript and may require contacting the authors for more information.
+  The phenomena used in the explanation task were prescreened in a previous MTurk survey to be interesting to a majority of respondents. The explanations themselves were developed in conjunction with experts in respective scientific fields; thus, the explanations, along with the corresponding horizontal and reductive information, were validated by experts. All of these stimuli are included as supplementary materials with the manuscript. However, there are two major challenges to replicating this experiment. First, the original experiment uses a mixed effects regression model predicting explanation rating from explanation level, explanation quality, scientific field, and sample. Because the current replication uses only one sample, this is not a parameter in the regression and will thus require modifying the source code for the analysis. Second, the original experiment has a long completion time of approximately 12 minutes. Given the funding constraints of the class, I aim to reduce this time by eliminating unnecessary elements of the experiment and optimizing the design without affecting the generalizability of this replication's results.
 
 
 ##Methods
@@ -46,56 +46,30 @@ Original effect size, power analysis for samples to achieve 80%, 90%, 95% power 
   
   The Rating Explanations task used 24 different phenomena (four per science)… The phenomena described concepts, principles, or research findings from each of the six sciences. To select the 24 phenomena, We began with a set of 46 (between 5 and 10 per science) and presented them to participants from MTurk (N = 58) and the psychology participant pool (N = 72). We presented a subset of 23 phenomena to each participant, chosen so that each participant received half of the pilot phenomena from each discipline. Participants read only the phenomena without any accompanying explanations. We asked (a) how interested participants were in the phenomenon (3-point scale: not interested, somewhat interested, very interested), (b) whether they already knew an explanation for the phenomenon, and (c) in which discipline the phenomenon belonged (anthropology, chemistry, physics, sociology, economics, neuroscience, psychology, political science, biology, or other). For a subset of 3 of the items where participants indicated that they already knew the explanation, we asked participants to provide the explanation in order to verify their initial ratings. To select which phenomena from this pilot set would be used in the study, we chose the 4 from each discipline that had the best combination of high interest scores, low rates of participants claiming that they already knew the explanation, poor explanations for those participants who provided them, and accurate categorizations by discipline. All of the phenomena we chose received a majority of ‘‘somewhat interested” or ‘‘very interested” scores and were categorized into their correct field by a majority of participants. Participants said that they already knew the explanation for these phenomena only 26% of the time on average. The complete set of pilot data is provided in the online supplemental materials. 
   For each phenomenon, we constructed four corresponding explanations: horizontal-good, horizontal-bad, reductive-good, and reductive-bad. All of the explanations were verified by experts in the respective fields. This was done by consulting with these experts, both in person and over email, throughout the process of developing the stimuli. In we conversations with the experts from each field, we explained the goals of the experiment, and the authors and the expert edited the explanations together to ensure that they met these goals… 
-The horizontal-good versions of the explanations were the ones that researchers or textbooks provided for the phenomena, and our expert consultants verified that these explanations were clear and accurate. The bad explanations were constructed by removing the key explanatory information from the good explanations and replacing it with either circular restatements of the phenomenon or with non-explanatory information. For the example, the information about male lizards being in competition with each other for mates was replaced with a restatement of the information from the phenomenon about males trying to attract females. In another example, information about why microwaves can cook a potato faster than traditional ovens was replaced with irrelevant information about how gas ovens use fuel and microwaves use electricity. As in these examples, all of the bad explanations made statements that were true; at no point did we provide participants with false information. This was done so that participants could not merely use the accuracy or inaccuracy of the information provided by the explanation in making their judgments. Crucially, however, the bad explanations provided no mechanistic information that could explain the phenomenon. We worked closely with our expert consultants to ensure that the bad explanations were indeed non-explanatory. After the creation of the full stimulus set, we coded each item for whether the bad explanations used circularity or irrelevant information to determine whether this influenced participants’ judgments. 
+  The horizontal-good versions of the explanations were the ones that researchers or textbooks provided for the phenomena, and our expert consultants verified that these explanations were clear and accurate. The bad explanations were constructed by removing the key explanatory information from the good explanations and replacing it with either circular restatements of the phenomenon or with non-explanatory information. For the example, the information about male lizards being in competition with each other for mates was replaced with a restatement of the information from the phenomenon about males trying to attract females. In another example, information about why microwaves can cook a potato faster than traditional ovens was replaced with irrelevant information about how gas ovens use fuel and microwaves use electricity. As in these examples, all of the bad explanations made statements that were true; at no point did we provide participants with false information. This was done so that participants could not merely use the accuracy or inaccuracy of the information provided by the explanation in making their judgments. Crucially, however, the bad explanations provided no mechanistic information that could explain the phenomenon. We worked closely with our expert consultants to ensure that the bad explanations were indeed non-explanatory. After the creation of the full stimulus set, we coded each item for whether the bad explanations used circularity or irrelevant information to determine whether this influenced participants’ judgments. 
   Both horizontal-good and horizontal-bad explanations used only terminology and concepts from the same discipline as the phenomenon. That is, biological phenomena were described only in biological terms, chemical phenomena were described in chemical terms, etc. Explanations in the reductive condition additionally used terminology from the discipline below that of the phenomena in our reductive hierarchy: biological explanations were supplemented with chemistry information, chemistry explanations were supplemented with physics information, etc. For phenomena from the domain of physics, the reductive explanations referred to smaller particles and/or more fundamental forces (e.g., reducing ‘‘friction” to ‘‘vibration of molecules”). We did not rewrite the entirety of the horizontal explanations in the terms of the reductive discipline, but rather included terminology and concepts from that discipline where possible within the explanation’s existing structure. This allowed us to match our stimuli closely across conditions and to maintain the same explanatory information in both conditions... 
-[The additional reductive information] was presented as an additional piece of information at the end of the explanation. In other cases, the reductive explanations translated some of the information into different but equivalent terms from the reductive field. In the microwave example mentioned above, the good-reductive explanation replaced ‘‘create friction in the water inside the potato” with ‘‘cause the water molecules inside the potato to vibrate.” We coded how the reductive information was incorporated into the explanations to determine if this affected participants’ ratings. 
+  [The additional reductive information] was presented as an additional piece of information at the end of the explanation. In other cases, the reductive explanations translated some of the information into different but equivalent terms from the reductive field. In the microwave example mentioned above, the good-reductive explanation replaced ‘‘create friction in the water inside the potato” with ‘‘cause the water molecules inside the potato to vibrate.” We coded how the reductive information was incorporated into the explanations to determine if this affected participants’ ratings. 
   We worked with our expert consultants to ensure that all of the information provided by the reductive explanations was both true and irrelevant to the logic of the explanation: Saying that microwaves create friction inside the potato is equivalent to saying that microwaves cause vibration in water molecules inside the potato. Thus, the reductive information never added any additional explanatory information. In this way, our reductive explanations allowed us to test whether participants were genuinely paying attention to the logic of the explanation (which was equivalent between the horizontal and reductive versions of each explanation) or whether their ratings of explanation quality would be swayed by the inclusion of true, but logically irrelevant, information from a more fundamental discipline. 
-For each phenomenon, the four versions of the explanation were matched as closely as possible outside of the manipulations for quality and explanation level. The added reductive text was identical for good and bad versions of the explanation. Length of explanation was carefully matched; within a phenomenon, the four versions of the explanation never differed in length by more than 4 words. Additionally, there were no significant differences in average word count among the six sciences. 
+  For each phenomenon, the four versions of the explanation were matched as closely as possible outside of the manipulations for quality and explanation level. The added reductive text was identical for good and bad versions of the explanation. Length of explanation was carefully matched; within a phenomenon, the four versions of the explanation never differed in length by more than 4 words. Additionally, there were no significant differences in average word count among the six sciences. 
   The 24 phenomena were divided into two pre-determined sets of 12 (two per science), and participants were randomly assigned to receive one of the two sets. Each set was further subdivided into two blocks of six phenomena (one per science); the order in which these two blocks were presented was randomly determined for each participant. Within each block, the six phenomena were presented in a random order. Each participant saw one good and one bad explanation from each science; two combinations of good and bad explanations were pseudorandomly determined ahead of time and participants were randomly assigned to one of the two different permutations. Further, participants were randomly assigned to either the horizontal or reductive condition, and all 12 explanations that they rated came from their assigned explanation level. This counterbalancing method led to 16 different randomly-assigned presentation orders in a 2 (Item Set: A or B) by 2 (Block Order) by 2 (Good/Bad combination) by 2 (Explanation Level: horizontal, reductive) design.
 
 
 ###Procedure	
 
-The experimental procedures used in the current replication were identical to those used in Hopkins, Weisberg, & Taylor (2016). The following is quoted directly from the original manuscript: 
-
-####Rating explanations 
-
-  All participants completed the Rating Explanations task first. For this task, participants used a sliding scale ranging from 3 to 3 to indicate their responses. They were first given instructions on how to use the slider; this also served as a check that participants were reading instructions. They were told to use the slider to select 0 on the first page in order to proceed with the survey. If they selected anything other than 0, they were directed to another page asking them again to select 0. Participants who did not select the correct response on this second page were excluded from analyses. After these general instructions on using the slider, participants were given instructions for the explanations task (modified from Fernandez-Duque et al., 2015): 
-
+  The experimental procedures used in the current replication were nearly identical to the explanation rating task used in Hopkins, Weisberg, & Taylor (2016) The following is quoted directly from the original manuscript: "All participants completed the Rating Explanations task first. For this task, participants used a sliding scale ranging from 3 to 3 to indicate their responses. They were first given instructions on how to use the slider; this also served as a check that participants were reading instructions. They were told to use the slider to select 0 on the first page in order to proceed with the survey... After these general instructions on using the slider, participants were given instructions for the explanations task (modified from Fernandez-Duque et al., 2015): 
   You will now be presented with descriptions of various scientific findings. All the findings come from solid, replicable research; they are the kind of material you would encounter in a textbook. You will also read an explanation of each finding. Unlike the findings themselves, the explanations of the findings range in quality. Some explanations are better than others: They are more logically sound. Your job is to judge the quality of such explanations, which could range from very poor (3) to very good (+3). 
-  On each trial, participants were presented with a description of a scientific phenomenon, which was displayed for 10 s before participants could advance to the next screen. On the next screen, an explanation was displayed below the phenomenon, and participants were instructed to rate the quality of the explanation. Participants rated 12 explanations, with an attention check trial administered after the first six (Oppenheimer, Meyvis, & Davidenko, 2009). This trial was similar in format to the others. First, a description of a phenomenon was presented for 10 s. When participants advanced to the next screen, instead of seeing an explanation, they saw text instructing them to select 3 on the scale. Participants who did not select 3 were excluded from analyses. 
-  After completing all 12 trials, participants were asked to give further justification of their responses for two of the phenomena they had viewed. The survey software randomly selected one phenomenon for which the participant had given a positive rating and one for which they had given a negative rating. These two were presented to participants in a random order. Participants were shown the phenomenon and explanation again and reminded of whether their rating had been positive or negative. They were then asked to explain why they gave that rating and to describe what additional information would have improved the explanation. These open-ended questions were followed by two multiple choice questions. First, participants were asked how reading the explanation changed their understanding of the phenomenon, with five response options: ‘‘I understand it much better than I did before”, ‘‘I understand it a little better than I did before”, ‘‘My understanding has not changed”, ‘‘I understand it a little less than I did before”, ‘‘I understand it a lot less than I did before”. The last question asked whether participants would like to change their rating after having thought more about the explanation; they could respond that they would make their rating higher, make it lower, or keep it unchanged. 
-  After the explanations task, participants completed four additional measures, presented in random order: Science Literacy, Reflective Thinking, Logical Syllogisms, and Perceptions of Science. 
-
-####Science literacy 
-
-  To assess participants’ general understanding of science, we used a set of science indicator questions from the National Science Foundation (National Science Board, 2014). Questions assessed participants’ basic understanding of probability and experimental design, as well as factual knowledge from a variety of scientific disciplines. Participants were given one score for this measure that represented the total number of questions they answered correctly (out of 15). 
-
-####Reflective thinking
-
- Reflective thinking was measured using an updated version of the Cognitive Reflection Test (Toplak et al., 2014). This measure consists of four mathematical word problems. For each, there is an intuitive, but incorrect, answer that follows from a quick reading of the question. Computing the correct answer requires participants to think more carefully about the problem. Participants’ scores on this measure represented the number of questions they answered correctly (out of 4).
-
-####Logical syllogisms 
-
-  To assess logical reasoning, participants were asked to solve four logical syllogisms presented in multiple choice format. Each consisted of two premises (e.g., ‘‘Some mechanics are baseball fans. No baseball fans enjoy board games”). Participants were then given three possible conclusions and a ‘‘None of the above” option and asked to indicate which conclusion must be true given the premises. In pilot testing (N = 35), participants averaged 2.3 out of 4 correct on these items (SD = 1.0; Range = 0–4). Participants’ scores on this measure represented the number of questions they answered correctly (out of 4). 
-
-####Perceptions of science 
-
-  This measure was adapted from Fernandez-Duque et al. (2015) to assess participants’ views of 10 scientific disciplines: anthropology, chemistry, physics, sociology, economics, neuroscience, psychology, political science, and biology. Participants rated each science on a 10-point scale in response to three different questions (presented in a random order). The questions asked about the perceived scientific rigor of each discipline, the extent of the knowledge gap between a novice and an expert in each discipline, and the societal prestige of each discipline. For each discipline, the ratings on the three items were summed to create a single score (out of 30). 
-
-####Demographics 
-
-  At the end of the survey, participants answered a series of demographic questions, including gender, age, or highest degree completed (for MTurk workers). Participants were asked to pick the category that most closely matched the field of their highest degree (physical sciences, social sciences, engineering, humanities, health, and business) and to give the exact field. They were also asked whether they had taken any college- or graduate-level courses in anthropology, chemistry, physics, sociology, economics, neuroscience, psychology, political science, biology, or philosophy
+  On each trial, participants were presented with a description of a scientific phenomenon, which was displayed for 10 s before participants could advance to the next screen. On the next screen, an explanation was displayed below the phenomenon, and participants were instructed to rate the quality of the explanation. Participants rated 12 explanations, with an attention check trial administered after the first six (Oppenheimer, Meyvis, & Davidenko, 2009). This trial was similar in format to the others. First, a description of a phenomenon was presented for 10 s. When participants advanced to the next screen, instead of seeing an explanation, they saw text instructing them to select 3 on the scale. Participants who did not select 3 were excluded from analyses."
+  Unlike in the original experiment, participants in the current replication are required to answer each item in order to continue. The current replication also does not include an explanation justification question or a battery of scientific literacy tests at the end of the survey, and asks only an abridged set of demographic questions (age, gender, education). These poritions of the experiment were removed because they drastically increased the length of the task but were not vital to the main hypotheses or questions of inquiry. 
 
 ###Analysis Plan
 
   The authors used “a mixed-effects linear regression model (using the lme4 package in R) predicting the rating given on each trial from the sample (MTurk, undergraduates), the quality of the explanation (good, bad), the explanation level (horizontal, reductive), and the science from which the phenomenon was drawn (physics, chemistry, biology, neuroscience, psychology, and social science). Sample and explanation level were between-participants variables and quality and science were within-participants. All possible interactions between variables were tested… Different random-effects structures were tested, and the bestfitting model included random intercepts by participant and item as well as a random effect of item on the slope for the quality variable… Significance levels were calculated by generating bootstrapped confidence intervals for the regression coefficients at 90%, 95%, and 99%.” 
-	The current replication will use the same analysis method (mixed-effects linear regression model). However, because there will be no undergraduate sample in the replication, the model will not include a between-subjects “sample” variable. As in the original manuscript, I also plan to conduct individual regressions to measure the correlation between explanation ratings and the auxiliary measures (science literacy, attitudes towards science, reflective thinking, and logical syllogisms).
+	The current replication will use the same analysis method (mixed-effects linear regression model). However, because there will be no undergraduate sample in the replication, the model will not include a between-subjects “sample” variable.
 
 ###Differences from Original Study
 
-  While Hopkins, Weisberg, & Taylor (2016) used two samples, an adult MTurk sample and an undergraduate sample, the current replication will only sample MTurk adults, because significant effects were limited to MTurk participants in the original manuscript, and collecting a high enough powered sample of undergraduates in a few weeks would prove challenging. Otherwise, the materials and procedure will be identical to Hopkins, Weisberg, & Taylor (2016). 
-	The main analysis will also be similar to that of the original manuscript, except the model in the replication will lack a between-subjects sample variable. Additionally, item effects will not be tested for brevity. Given the identical experimental materials and procedures, and the nearly identical analyses, there exists no fundamental differences between the original experiment and the replication that should prevent the current replication from being faithful to the original.
+  While Hopkins, Weisberg, & Taylor (2016) used two samples, an adult MTurk sample and an undergraduate sample, the current replication will only sample MTurk adults, because significant effects were limited to MTurk participants in the original manuscript, and collecting a high enough powered sample of undergraduates in a few weeks would prove challenging. Additionally, the current replication only tests participants on the explanation rating task, and does not prompt an explanation justification at the end, tests of scientific literacy, or tests of scientific attitudes. These portions were not included in the replication because they drastically increased the length of the task but were not related to the main hypotheses or questions of inquiry. Otherwise, the materials and procedure for the explanation rating task were identical to the original experiment, except that participants in the replication are not allowed to skip questions without providing a response.
+	The main analysis will also be similar to that of the original manuscript, except the model in the replication will lack a between-subjects sample variable. Additionally, item effects will not be tested for brevity. Given the identical experimental materials and procedures, and the nearly identical analyses, there exists no fundamental differences between the original experiment and the replication that should prevent the current replication from being faithful to the original in terms of answering the main questions of interest.
 
 ### Methods Addendum (Post Data Collection)
 
@@ -115,10 +89,11 @@ You can comment this section out prior to final report with data collection.
 
 Data preparation following the analysis plan.
 	
-```{r include=F}
+```{r}
 
 #load libraries
 library(tidyverse)
+library(plotrix)
 library(csv)
 
 ```
@@ -282,18 +257,9 @@ data_long$condition <- factor(data_long$condition,
                   labels = c("horizontal", "reduction"))
 ```
 
-
-### Confirmatory analysis
-
 ```{r}
-data <- data_long
-aov1 <- aov(data$rating ~ data$condition * data$quality * data$science)
-summary(aov1)
-```
-
-```{r, eval=FALSE}
-
-#Load packages
+#load libraries for graphing and data analysis
+library(ggplot2)
 library(reshape2)
 library(lme4)
 library(gplots)
@@ -301,7 +267,13 @@ library(psych)
 library(effects)
 library(ppcor)
 library(car)
+```
 
+### Confirmatory analysis
+
+Mixed effects model, predicting explanation rating with explanation level (reductive vs horizontal), explanation quality (good vs bad), and scientific domain as predictors:
+
+```{r}
 data <- data_long
 #Read in and format data
 
@@ -312,7 +284,6 @@ data$science <- relevel(data$science, ref = "neuroscience")
 data$science <- relevel(data$science, ref = "biology")
 data$science <- relevel(data$science, ref = "chemistry")
 data$science <- relevel(data$science, ref = "physics")
-
 
 #Backward difference coding; each level is compared to the mean of the one before it 
 contrasts(data$quality) <- matrix(c(-1/2,1/2), nrow=2)
@@ -332,30 +303,81 @@ confint(explanations, method="boot", level = .95)
 #########################################################
 #Analyses by science - Table 3
 
-phys <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="phys"))
+phys <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="physics"))
 summary(phys)
 confint(phys, method = "boot")
 
-chem <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="chem"))
+chem <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="chemistry"))
 summary(chem)
 confint(chem, method="boot")
 
-bio <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="bio"))
+bio <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="biology"))
 summary(bio)
 confint(bio, method="boot")
 
-neuro <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="neuro"))
+neuro <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="neuroscience"))
 summary(neuro)
 confint(neuro, method = "boot")
 
-psych <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="psych"))
+psych <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="psychology"))
 summary(psych)
 confint(psych, method="boot")
 
-soc <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(combined, science=="soc"))
+soc <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="social"))
 summary(soc)
 confint(soc, method = "boot")
 
+```
+
+Original results from Hopkins, Weisberg, & Taylor (2016):
+
+```{r}
+#original graph
+original_data <- read.csv("~/Desktop/hopkins2016/data/original_hopkins2016_data.csv", header = TRUE)
+original_data$science <- ifelse(original_data$science=="phys", "physics", original_data$science)
+original_data$science <- ifelse(original_data$science=="2", "chemistry", original_data$science)
+original_data$science <- ifelse(original_data$science=="1", "biology", original_data$science)
+original_data$science <- ifelse(original_data$science=="3", "neuroscience", original_data$science)
+original_data$science <- ifelse(original_data$science=="5", "psychology", original_data$science)
+original_data$science <- ifelse(original_data$science=="6", "social", original_data$science)
+original_data$science <- ifelse(original_data$science=="6", "social", original_data$science)
+original_data$condition <- ifelse(original_data$condition=="H", "Horizontal", original_data$condition)
+original_data$condition <- ifelse(original_data$condition=="2", "Reductive", original_data$condition)
+original_data
+original_grouped <- original_data %>%
+  group_by(quality, condition, science) %>%
+  summarise(avg_rating = mean(rating),
+            sem_rating = std.error(rating))
+original_grouped
+
+ggplot(original_grouped, aes(x=quality, y=avg_rating, fill=condition)) +
+  geom_bar(position="dodge", stat="identity") + 
+  scale_fill_brewer(palette="Set1") +
+  geom_errorbar(aes(ymin = (avg_rating - sem_rating), ymax = (avg_rating + sem_rating)), position = "dodge") +
+  facet_wrap(~science, nrow=1) +
+  ggthemes::theme_few() +
+  scale_y_continuous(name='explanation rating', limits=c(-3, 3), breaks=seq(-3, 3, 1)) +
+  theme(strip.text = element_text(size = 8, margin = margin()))
+```
+
+Results of the current replication:
+
+```{r}
+#replication graph
+data <- data_long
+replication_grouped <- data %>%
+  group_by(quality, condition, science) %>%
+  summarise(avg_rating = mean(rating),
+            sem_rating = std.error(rating))
+
+ggplot(replication_grouped, aes(x=quality, y=avg_rating, fill=condition)) +
+  geom_bar(position="dodge", stat="identity") + 
+  scale_fill_brewer(palette="Set1") +
+  geom_errorbar(aes(ymin = (avg_rating - sem_rating), ymax = (avg_rating + sem_rating)), position = "dodge") +
+  facet_wrap(~science, nrow=1) +
+  ggthemes::theme_few() +
+  scale_y_continuous(name='explanation rating', limits=c(-3, 3), breaks=seq(-3, 3, 1)) +
+  theme(strip.text = element_text(size = 8, margin = margin()))
 ```
 
 *Side-by-side graph with original graph is ideal here*
