@@ -343,7 +343,6 @@ original_data$science <- ifelse(original_data$science=="6", "social", original_d
 original_data$science <- ifelse(original_data$science=="6", "social", original_data$science)
 original_data$condition <- ifelse(original_data$condition=="H", "Horizontal", original_data$condition)
 original_data$condition <- ifelse(original_data$condition=="2", "Reductive", original_data$condition)
-original_data
 original_grouped <- original_data %>%
   group_by(quality, condition, science) %>%
   summarise(avg_rating = mean(rating),
