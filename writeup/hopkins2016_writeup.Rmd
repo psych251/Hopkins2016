@@ -34,11 +34,11 @@ output:
 
 ###Power Analysis
 
-Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+No power analysis or sample size justification was provided by Hopkins, Weisberg, & Taylor (2016). The experimental design (2 between subjects conditions x 2 within subjects conditions x 6 item domains) and main analysis, a mixed effects model are sufficiently complex and present multiple possible ways to generate a suggested sample size. Thus, the current replication simply uses the same MTurk sample size (167) from the original experiment so that power is equated across both experiments.  
 
 ###Planned Sample
 
-  Participants will be sampled from Amazon Mechanical Turk and further limited to English speaking adults residing in the US. Participant demographics are thus representative of the broader MTurk population. Sample size will be set via power analysis (alpha = .05, beta = .8) plus an additional 20% to account for participants rejected via attention check questions (see procedures). Participants who complete the task and pass all attention checks will be included in the final sample.
+  167 adult participants will be sampled from Amazon Mechanical Turk and further limited to English speaking adults residing in the US. Participant demographics are representative of the broader MTurk population. Participants who complete the task and pass both attention checks will be included in the final sample.
 
 ###Materials
 
