@@ -1832,63 +1832,63 @@ explanations &lt;- lmer(rating ~ (quality+condition+science)^2 + quality:conditi
 <pre class="r"><code>confint(explanations, method=&quot;boot&quot;, level = .90)</code></pre>
 <pre><code>## Computing bootstrap confidence intervals ...</code></pre>
 <pre><code>## 
-## 150 message(s): boundary (singular) fit: see ?isSingular
-## 478 warning(s): Model failed to converge with max|grad| = 0.00362781 (tol = 0.002, component 1) (and others)</code></pre>
+## 169 message(s): boundary (singular) fit: see ?isSingular
+## 459 warning(s): Model failed to converge with max|grad| = 0.00239272 (tol = 0.002, component 1) (and others)</code></pre>
 <pre><code>##                             2.5 %        97.5 %
-## .sig01               2.399440e-01  6.393156e-01
-## .sig02              -1.000000e+00  9.999893e-01
-## .sig03               3.144077e-02  1.043423e+00
-## .sig04               0.000000e+00  7.632128e-07
-## .sigma               2.446463e-06  2.966718e-06
-## (Intercept)          4.006210e-01  8.104517e-01
-## quality1            -1.422510e+00 -1.020554e+00
-## condition1           1.032102e+00  1.433112e+00
-## science1            -9.718961e-01  3.861369e-02
-## science2            -4.064349e-02  9.689896e-01
-## science3            -2.971296e-01  5.982511e-01
-## science4            -3.952949e-01  5.763801e-01
-## science5             8.062649e-02  1.042985e+00
-## quality1:condition1 -1.607345e+00  6.140616e-02
-## quality1:science1   -6.966822e-01  3.512195e-01
-## quality1:science2   -1.456161e+00 -5.463391e-01
-## quality1:science3    2.105688e+00  3.040645e+00
-## quality1:science4    3.521304e-01  1.290353e+00
-## quality1:science5    1.154371e-01  1.176728e+00
-## condition1:science1 -3.411848e+00 -2.418014e+00
-## condition1:science2  8.208512e-01  1.863695e+00
-## condition1:science3 -7.248425e-02  9.827598e-01
-## condition1:science4  2.793133e+00  3.789381e+00
-## condition1:science5 -4.831804e-01  5.930916e-01</code></pre>
+## .sig01               1.960342e-01  6.552549e-01
+## .sig02              -1.000000e+00  1.000000e+00
+## .sig03               2.864400e-02  1.081438e+00
+## .sig04               0.000000e+00  7.618171e-07
+## .sigma               2.435981e-06  2.980511e-06
+## (Intercept)          3.946643e-01  8.424176e-01
+## quality1            -1.409665e+00 -1.010810e+00
+## condition1           9.925597e-01  1.421782e+00
+## science1            -9.535982e-01  3.361053e-02
+## science2            -6.322225e-02  8.871004e-01
+## science3            -2.911190e-01  6.950174e-01
+## science4            -3.119541e-01  5.963912e-01
+## science5             5.045547e-02  1.011566e+00
+## quality1:condition1 -1.621753e+00  1.204650e-01
+## quality1:science1   -7.589980e-01  2.180750e-01
+## quality1:science2   -1.503380e+00 -4.954971e-01
+## quality1:science3    2.114283e+00  3.009034e+00
+## quality1:science4    3.663301e-01  1.304571e+00
+## quality1:science5    1.973965e-01  1.073220e+00
+## condition1:science1 -3.414834e+00 -2.310833e+00
+## condition1:science2  8.567332e-01  1.846221e+00
+## condition1:science3 -9.788035e-02  8.888882e-01
+## condition1:science4  2.774960e+00  3.803407e+00
+## condition1:science5 -5.187599e-01  5.756939e-01</code></pre>
 <pre class="r"><code>confint(explanations, method=&quot;boot&quot;, level = .95)</code></pre>
 <pre><code>## Computing bootstrap confidence intervals ...</code></pre>
 <pre><code>## 
-## 179 message(s): boundary (singular) fit: see ?isSingular
-## 443 warning(s): Model failed to converge with max|grad| = 0.00377202 (tol = 0.002, component 1) (and others)</code></pre>
+## 156 message(s): boundary (singular) fit: see ?isSingular
+## 473 warning(s): Model failed to converge with max|grad| = 0.00283819 (tol = 0.002, component 1) (and others)</code></pre>
 <pre><code>##                             2.5 %        97.5 %
-## .sig01               2.151193e-01  6.653498e-01
-## .sig02              -1.000000e+00  9.999997e-01
-## .sig03               2.851936e-02  1.077495e+00
-## .sig04               0.000000e+00  7.923195e-07
-## .sigma               2.422618e-06  2.951339e-06
-## (Intercept)          3.963691e-01  8.322110e-01
-## quality1            -1.419708e+00 -9.980452e-01
-## condition1           1.017641e+00  1.436583e+00
-## science1            -9.257801e-01  6.119610e-02
-## science2            -1.002337e-01  9.340035e-01
-## science3            -3.048030e-01  6.617666e-01
-## science4            -3.407253e-01  6.192968e-01
-## science5             7.431664e-02  1.045850e+00
-## quality1:condition1 -1.664074e+00 -3.190046e-03
-## quality1:science1   -6.686819e-01  2.582208e-01
-## quality1:science2   -1.439177e+00 -5.763363e-01
-## quality1:science3    2.059414e+00  2.993876e+00
-## quality1:science4    3.819188e-01  1.301195e+00
-## quality1:science5    2.500459e-01  1.078269e+00
-## condition1:science1 -3.410466e+00 -2.367168e+00
-## condition1:science2  8.646441e-01  1.828377e+00
-## condition1:science3 -1.346142e-01  9.713956e-01
-## condition1:science4  2.714351e+00  3.826013e+00
-## condition1:science5 -4.769602e-01  5.412682e-01</code></pre>
+## .sig01               1.999589e-01  6.517320e-01
+## .sig02              -1.000000e+00  9.999891e-01
+## .sig03               3.002339e-02  1.068636e+00
+## .sig04               0.000000e+00  7.683326e-07
+## .sigma               2.424105e-06  3.020836e-06
+## (Intercept)          3.837364e-01  8.396534e-01
+## quality1            -1.410581e+00 -1.007319e+00
+## condition1           9.763834e-01  1.426578e+00
+## science1            -9.358576e-01  1.392874e-02
+## science2            -4.055722e-02  9.049560e-01
+## science3            -3.400086e-01  6.310165e-01
+## science4            -3.186465e-01  6.665493e-01
+## science5             7.766317e-02  1.025081e+00
+## quality1:condition1 -1.627586e+00  5.538290e-02
+## quality1:science1   -6.541863e-01  2.194261e-01
+## quality1:science2   -1.495081e+00 -5.606707e-01
+## quality1:science3    2.089577e+00  2.993327e+00
+## quality1:science4    4.074472e-01  1.253093e+00
+## quality1:science5    2.378739e-01  1.111369e+00
+## condition1:science1 -3.381486e+00 -2.370080e+00
+## condition1:science2  7.848137e-01  1.889032e+00
+## condition1:science3 -1.431361e-01  8.646733e-01
+## condition1:science4  2.808063e+00  3.858419e+00
+## condition1:science5 -4.044488e-01  5.557799e-01</code></pre>
 <pre class="r"><code>#########################################################
 #Analyses by science - Table 3
 
@@ -1925,14 +1925,14 @@ phys &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, sc
 <pre class="r"><code>confint(phys, method = &quot;boot&quot;)</code></pre>
 <pre><code>## Computing bootstrap confidence intervals ...</code></pre>
 <pre><code>## 
-## 343 message(s): boundary (singular) fit: see ?isSingular
-## 304 warning(s): Model failed to converge with max|grad| = 0.00230834 (tol = 0.002, component 1) (and others)</code></pre>
+## 353 message(s): boundary (singular) fit: see ?isSingular
+## 290 warning(s): Model failed to converge: degenerate  Hessian with 1 negative eigenvalues (and others)</code></pre>
 <pre><code>##                     2.5 %       97.5 %
-## .sig01       2.516776e-07 0.0002564028
-## .sig02       0.000000e+00 3.0360057704
-## .sigma       1.220446e+00 2.0029724966
-## (Intercept) -1.942407e+00 1.5499449026
-## condition1  -2.459841e+00 0.3505364136</code></pre>
+## .sig01       6.086255e-07 0.0002555881
+## .sig02       0.000000e+00 2.9846901452
+## .sigma       1.248840e+00 2.0488375011
+## (Intercept) -1.992351e+00 1.4481797840
+## condition1  -2.237507e+00 0.5450348574</code></pre>
 <pre class="r"><code>chem &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science==&quot;chemistry&quot;))</code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
 <pre class="r"><code>summary(chem)</code></pre>
@@ -1966,14 +1966,14 @@ phys &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, sc
 <pre class="r"><code>confint(chem, method=&quot;boot&quot;)</code></pre>
 <pre><code>## Computing bootstrap confidence intervals ...</code></pre>
 <pre><code>## 
-## 172 message(s): boundary (singular) fit: see ?isSingular
-## 28 warning(s): Model failed to converge with max|grad| = 0.0020227 (tol = 0.002, component 1) (and others)</code></pre>
+## 186 message(s): boundary (singular) fit: see ?isSingular
+## 36 warning(s): Model failed to converge with max|grad| = 0.00206867 (tol = 0.002, component 1) (and others)</code></pre>
 <pre><code>##                  2.5 %     97.5 %
-## .sig01       0.0000000  0.4366141
-## .sig02       0.4410796  3.5269107
-## .sigma       0.4242069  0.7351209
-## (Intercept) -1.7482078  2.2066940
-## condition1  -2.0750781 -1.0173860</code></pre>
+## .sig01       0.0000000  0.4297830
+## .sig02       0.4510399  3.4271359
+## .sigma       0.4241216  0.7646222
+## (Intercept) -1.5626210  2.0152573
+## condition1  -2.0284641 -0.9742634</code></pre>
 <pre class="r"><code>bio &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science==&quot;biology&quot;))</code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
 <pre class="r"><code>summary(bio)</code></pre>
@@ -2007,14 +2007,14 @@ phys &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, sc
 <pre class="r"><code>confint(bio, method=&quot;boot&quot;)</code></pre>
 <pre><code>## Computing bootstrap confidence intervals ...</code></pre>
 <pre><code>## 
-## 196 message(s): boundary (singular) fit: see ?isSingular
-## 24 warning(s): Model failed to converge with max|grad| = 0.00209784 (tol = 0.002, component 1) (and others)</code></pre>
-<pre><code>##                  2.5 %    97.5 %
-## .sig01       0.0000000 0.7288302
-## .sig02       0.0000000 2.3744088
-## .sigma       0.6754198 1.2390865
-## (Intercept) -0.3944871 2.2384316
-## condition1   1.6654811 3.2326395</code></pre>
+## 197 message(s): boundary (singular) fit: see ?isSingular
+## 21 warning(s): Model failed to converge with max|grad| = 0.00206761 (tol = 0.002, component 1) (and others)</code></pre>
+<pre><code>##                   2.5 %    97.5 %
+## .sig01       0.00000000 0.7701074
+## .sig02       0.07046178 2.3507696
+## .sigma       0.69212519 1.2240919
+## (Intercept) -0.47934035 2.4046552
+## condition1   1.60467476 3.3536475</code></pre>
 <pre class="r"><code>neuro &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science==&quot;neuroscience&quot;))</code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
 <pre class="r"><code>summary(neuro)</code></pre>
@@ -2048,14 +2048,14 @@ phys &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, sc
 <pre class="r"><code>confint(neuro, method = &quot;boot&quot;)</code></pre>
 <pre><code>## Computing bootstrap confidence intervals ...</code></pre>
 <pre><code>## 
-## 201 message(s): boundary (singular) fit: see ?isSingular
-## 26 warning(s): Model failed to converge with max|grad| = 0.00217079 (tol = 0.002, component 1) (and others)</code></pre>
-<pre><code>##                  2.5 %    97.5 %
-## .sig01      0.00000000 0.4330424
-## .sig02      0.00000000 1.2880972
-## .sigma      0.41559265 0.7446729
-## (Intercept) 0.04959456 1.5211285
-## condition1  1.08077697 2.0838623</code></pre>
+## 180 message(s): boundary (singular) fit: see ?isSingular
+## 23 warning(s): Model failed to converge with max|grad| = 0.00204122 (tol = 0.002, component 1) (and others)</code></pre>
+<pre><code>##                   2.5 %    97.5 %
+## .sig01       0.00000000 0.4491224
+## .sig02       0.03473578 1.3035103
+## .sigma       0.41529333 0.7445547
+## (Intercept) -0.01108939 1.4617942
+## condition1   1.06050645 2.0700774</code></pre>
 <pre class="r"><code>psych &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science==&quot;psychology&quot;))</code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
 <pre class="r"><code>summary(psych)</code></pre>
@@ -2089,14 +2089,14 @@ phys &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, sc
 <pre class="r"><code>confint(psych, method=&quot;boot&quot;)</code></pre>
 <pre><code>## Computing bootstrap confidence intervals ...</code></pre>
 <pre><code>## 
-## 167 message(s): boundary (singular) fit: see ?isSingular
-## 30 warning(s): Model failed to converge with max|grad| = 0.00200695 (tol = 0.002, component 1) (and others)</code></pre>
+## 174 message(s): boundary (singular) fit: see ?isSingular
+## 23 warning(s): Model failed to converge with max|grad| = 0.00214245 (tol = 0.002, component 1) (and others)</code></pre>
 <pre><code>##                  2.5 %    97.5 %
-## .sig01       0.0000000 0.1463652
-## .sig02       0.3776523 2.0743377
-## .sigma       0.1391086 0.2523757
-## (Intercept) -0.4615499 1.9393787
-## condition1   4.3423121 4.6681816</code></pre>
+## .sig01       0.0000000 0.1457430
+## .sig02       0.3226552 1.9495518
+## .sigma       0.1398015 0.2485233
+## (Intercept) -0.3861115 1.8597998
+## condition1   4.3387599 4.6747049</code></pre>
 <pre class="r"><code>soc &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science==&quot;social&quot;))</code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
 <pre class="r"><code>summary(soc)</code></pre>
@@ -2130,14 +2130,14 @@ phys &lt;- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, sc
 <pre class="r"><code>confint(soc, method = &quot;boot&quot;)</code></pre>
 <pre><code>## Computing bootstrap confidence intervals ...</code></pre>
 <pre><code>## 
-## 192 message(s): boundary (singular) fit: see ?isSingular
-## 23 warning(s): Model failed to converge with max|grad| = 0.00207067 (tol = 0.002, component 1) (and others)</code></pre>
+## 171 message(s): boundary (singular) fit: see ?isSingular
+## 17 warning(s): Model failed to converge with max|grad| = 0.00208233 (tol = 0.002, component 1) (and others)</code></pre>
 <pre><code>##                  2.5 %    97.5 %
-## .sig01       0.0000000 0.2900550
-## .sig02       0.6807765 4.2630323
-## .sigma       0.2741356 0.5026712
-## (Intercept) -1.6575388 3.4847145
-## condition1   0.6627762 1.3284019</code></pre>
+## .sig01       0.0000000 0.2897861
+## .sig02       0.6178480 4.4923139
+## .sigma       0.2673293 0.4971178
+## (Intercept) -1.3324780 3.5771252
+## condition1   0.6922671 1.3614909</code></pre>
 <p>Original results from Hopkins, Weisberg, &amp; Taylor (2016):</p>
 <pre class="r"><code>#original graph
 original_data &lt;- read.csv(&quot;~/Desktop/hopkins2016/data/original_hopkins2016_data.csv&quot;, header = TRUE)
@@ -16275,23 +16275,8 @@ original_data</code></pre>
   group_by(quality, condition, science) %&gt;%
   summarise(avg_rating = mean(rating),
             sem_rating = std.error(rating))
-original_grouped</code></pre>
-<pre><code>## # A tibble: 24 x 5
-## # Groups:   quality, condition [4]
-##    quality condition  science      avg_rating sem_rating
-##    &lt;fct&gt;   &lt;chr&gt;      &lt;chr&gt;             &lt;dbl&gt;      &lt;dbl&gt;
-##  1 bad     Horizontal biology           0.541      0.244
-##  2 bad     Horizontal chemistry         0.689      0.247
-##  3 bad     Horizontal neuroscience      0.730      0.225
-##  4 bad     Horizontal physics           0.595      0.223
-##  5 bad     Horizontal psychology       -0.189      0.217
-##  6 bad     Horizontal social            0.770      0.223
-##  7 bad     Reductive  biology           1.07       0.213
-##  8 bad     Reductive  chemistry         1.29       0.202
-##  9 bad     Reductive  neuroscience      1.30       0.197
-## 10 bad     Reductive  physics           0.932      0.192
-## # … with 14 more rows</code></pre>
-<pre class="r"><code>ggplot(original_grouped, aes(x=quality, y=avg_rating, fill=condition)) +
+
+ggplot(original_grouped, aes(x=quality, y=avg_rating, fill=condition)) +
   geom_bar(position=&quot;dodge&quot;, stat=&quot;identity&quot;) + 
   scale_fill_brewer(palette=&quot;Set1&quot;) +
   geom_errorbar(aes(ymin = (avg_rating - sem_rating), ymax = (avg_rating + sem_rating)), position = &quot;dodge&quot;) +
