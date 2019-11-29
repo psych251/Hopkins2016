@@ -348,7 +348,6 @@ original_grouped <- original_data %>%
   group_by(quality, condition, science) %>%
   summarise(avg_rating = mean(rating),
             sem_rating = std.error(rating))
-original_grouped
 
 ggplot(original_grouped, aes(x=quality, y=avg_rating, fill=condition)) +
   geom_bar(position="dodge", stat="identity") + 
