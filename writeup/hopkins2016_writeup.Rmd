@@ -1,5 +1,5 @@
 ---
-title: "Replication of 'The seductive allure is a reductive allure: People prefer scientificexplanations that contain logically irrelevant reductive information' by Hopkins, Weisberg, & Taylor (2016, Cognition)"
+title: "Replication of 'The seductive allure is a reductive allure: People prefer scientific explanations that contain logically irrelevant reductive information' by Hopkins, Weisberg, & Taylor (2016, Cognition)"
 author: "Aaron Chuey (chuey@stanford.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
@@ -12,7 +12,7 @@ output:
 
 <!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
-##Introduction
+# Introduction
 
 [My Github repository](https://github.com/psych251/hopkins2016)
 
@@ -20,27 +20,27 @@ output:
 
 [Link to pilot survey](https://stanforduniversity.qualtrics.com/jfe/form/SV_ex4dv8CdaDj2VvL)
 
-###Motivation for Replication
+## Motivation for Replication
 
   Weisberg et al (2008) found that non-experts judged explanations of psychological phenomena more satisfying when they contained irrelevant neuroscience information, coined “the seductive allure effect”. Hopkins, Weisberg, & Taylor (2016) embed this tendency within a more general preference for reductive information within explanations across scientific domains, what they call “the reductive allure effect”. While Hopkins and colleagues find some evidence to support this claim, their results are inconsistent across scientific domains and limited to poorly evaluated explanations. The robustness of the reductive allure effect has broad implications for the effect of complexity and level of detail on laypeople’s evaluation of explanations, a topic that greatly interests me.
 
-###Overview of Procedure, Stimuli, and Potential Challenges
+## Overview of Procedure, Stimuli, and Potential Challenges
 
   Participants from Hopkins, Weisberg, & Taylor (2016) included both MTurkers and undergraduates; however, because the original effect was limited to MTurkers only, the current replication will be limited to just MTurkers. The experiment utilizes an explanation rating paradigm followed by a battery of cognitive tests. Participants are assigned to one of two conditions, which varied by the explanation level of included irrelevant information (horizontal or reductive). Participants then rated two explanations, one good and one bad, for each of six scientific domains one by one. Ratings were presented on a scale from very poor (-3) to very good (3). After the explanation rating task, participants completed a battery of tests measuring science literacy, reflective thinking, logical syllogisms, and perceptions of science.
   The phenomena used in the explanation task were prescreened in a previous MTurk survey to be interesting to a majority of respondents. The explanations themselves were developed in conjunction with experts in respective scientific fields; thus, the explanations, along with the corresponding horizontal and reductive information, were validated by experts. All of these stimuli are included as supplementary materials with the manuscript. However, there are two major challenges to replicating this experiment. First, the original experiment uses a mixed effects regression model predicting explanation rating from explanation level, explanation quality, scientific field, and sample. Because the current replication uses only one sample, this is not a parameter in the regression and will thus require modifying the source code for the analysis. Second, the original experiment has a long completion time of approximately 12 minutes. Given the funding constraints of the class, I aim to reduce this time by eliminating unnecessary elements of the experiment and optimizing the design without affecting the generalizability of this replication's results.
 
 
-##Methods
+# Methods
 
-###Power Analysis
+## Power Analysis
 
 No power analysis or sample size justification was provided by Hopkins, Weisberg, & Taylor (2016). The experimental design (2 between subjects conditions x 2 within subjects conditions x 6 item domains) and main analysis, a mixed effects model are sufficiently complex and present multiple possible ways to generate a suggested sample size. Thus, the current replication simply uses the same MTurk sample size (167) from the original experiment so that power is equated across both experiments.  
 
-###Planned Sample
+## Planned Sample
 
-  167 adult participants will be sampled from Amazon Mechanical Turk and further limited to English speaking adults residing in the US. Participant demographics are representative of the broader MTurk population. Participants who complete the task and pass both attention checks will be included in the final sample.
+  167 adult participants will be sampled from Amazon Mechanical Turk and further limited to English speaking adults residing in the US. Participant demographics are representative of the broader MTurk population. Participants who complete the task and pass both attention checks will be included in the final sample. The first attention check occurs at the end of the introduction and merely asks participants to select a number on the scale that will be used in the subsequent task. The second attention check occurs after the first 6 items. It takes the appearance of an actual item, but simply asks participants to select '3' on the scale.
 
-###Materials
+## Materials
 
   The materials used in the current replication were identical to those used in Hopkins, Weisberg, & Taylor (2016). The following is quoted directly from the original manuscript: 
   
@@ -53,53 +53,52 @@ No power analysis or sample size justification was provided by Hopkins, Weisberg
   For each phenomenon, the four versions of the explanation were matched as closely as possible outside of the manipulations for quality and explanation level. The added reductive text was identical for good and bad versions of the explanation. Length of explanation was carefully matched; within a phenomenon, the four versions of the explanation never differed in length by more than 4 words. Additionally, there were no significant differences in average word count among the six sciences. 
   The 24 phenomena were divided into two pre-determined sets of 12 (two per science), and participants were randomly assigned to receive one of the two sets. Each set was further subdivided into two blocks of six phenomena (one per science); the order in which these two blocks were presented was randomly determined for each participant. Within each block, the six phenomena were presented in a random order. Each participant saw one good and one bad explanation from each science; two combinations of good and bad explanations were pseudorandomly determined ahead of time and participants were randomly assigned to one of the two different permutations. Further, participants were randomly assigned to either the horizontal or reductive condition, and all 12 explanations that they rated came from their assigned explanation level. This counterbalancing method led to 16 different randomly-assigned presentation orders in a 2 (Item Set: A or B) by 2 (Block Order) by 2 (Good/Bad combination) by 2 (Explanation Level: horizontal, reductive) design.
 
-
-###Procedure	
+## Procedure	
 
   The experimental procedures used in the current replication were nearly identical to the explanation rating task used in Hopkins, Weisberg, & Taylor (2016) The following is quoted directly from the original manuscript: "All participants completed the Rating Explanations task first. For this task, participants used a sliding scale ranging from 3 to 3 to indicate their responses. They were first given instructions on how to use the slider; this also served as a check that participants were reading instructions. They were told to use the slider to select 0 on the first page in order to proceed with the survey... After these general instructions on using the slider, participants were given instructions for the explanations task (modified from Fernandez-Duque et al., 2015): 
   You will now be presented with descriptions of various scientific findings. All the findings come from solid, replicable research; they are the kind of material you would encounter in a textbook. You will also read an explanation of each finding. Unlike the findings themselves, the explanations of the findings range in quality. Some explanations are better than others: They are more logically sound. Your job is to judge the quality of such explanations, which could range from very poor (3) to very good (+3). 
   On each trial, participants were presented with a description of a scientific phenomenon, which was displayed for 10 s before participants could advance to the next screen. On the next screen, an explanation was displayed below the phenomenon, and participants were instructed to rate the quality of the explanation. Participants rated 12 explanations, with an attention check trial administered after the first six (Oppenheimer, Meyvis, & Davidenko, 2009). This trial was similar in format to the others. First, a description of a phenomenon was presented for 10 s. When participants advanced to the next screen, instead of seeing an explanation, they saw text instructing them to select 3 on the scale. Participants who did not select 3 were excluded from analyses."
   Unlike in the original experiment, participants in the current replication are required to answer each item in order to continue. The current replication also does not include an explanation justification question or a battery of scientific literacy tests at the end of the survey, and asks only an abridged set of demographic questions (age, gender, education). These poritions of the experiment were removed because they drastically increased the length of the task but were not vital to the main hypotheses or questions of inquiry. 
 
-###Analysis Plan
+## Analysis Plan
 
-  The authors used “a mixed-effects linear regression model (using the lme4 package in R) predicting the rating given on each trial from the sample (MTurk, undergraduates), the quality of the explanation (good, bad), the explanation level (horizontal, reductive), and the science from which the phenomenon was drawn (physics, chemistry, biology, neuroscience, psychology, and social science). Sample and explanation level were between-participants variables and quality and science were within-participants. All possible interactions between variables were tested… Different random-effects structures were tested, and the bestfitting model included random intercepts by participant and item as well as a random effect of item on the slope for the quality variable… Significance levels were calculated by generating bootstrapped confidence intervals for the regression coefficients at 90%, 95%, and 99%.” 
-	The current replication will use the same analysis method (mixed-effects linear regression model). However, because there will be no undergraduate sample in the replication, the model will not include a between-subjects “sample” variable.
+  The authors used “a mixed-effects linear regression model (using the lme4 package in R) predicting the rating given on each trial from the sample (MTurk, undergraduates), the quality of the explanation (good, bad), the explanation level (horizontal, reductive), and the science from which the phenomenon was drawn (physics, chemistry, biology, neuroscience, psychology, and social science). Sample and explanation level were between-participants variables and quality and science were within-participants. All possible interactions between variables were tested. Different random-effects structures were tested, and the bestfitting model included random intercepts by participant and item as well as a random effect of item on the slope for the quality variable.” The main finding was a significant effect explanation level, t=2.23, p<.05. Reductive explanations (M = 1.26, SD = 1.71) were rated significantly higher than horizontal explanations (M = 1.04, SD = 1.88). Individual regression models were also conducted for each science to test for robustness across domain.  
+	The current replication will use the same analysis method (mixed-effects linear regression model). However, because there will be no undergraduate sample in the replication, the model will not include a between-subjects “sample” variable. The main prediction of interest is a significant effect of explanation level, such that reductive explanations are rated higher than horizontal explanations.
 
-###Differences from Original Study
+## Differences from Original Study
 
   While Hopkins, Weisberg, & Taylor (2016) used two samples, an adult MTurk sample and an undergraduate sample, the current replication will only sample MTurk adults, because significant effects were limited to MTurk participants in the original manuscript, and collecting a high enough powered sample of undergraduates in a few weeks would prove challenging. Additionally, the current replication only tests participants on the explanation rating task, and does not prompt an explanation justification at the end, tests of scientific literacy, or tests of scientific attitudes. These portions were not included in the replication because they drastically increased the length of the task but were not related to the main hypotheses or questions of inquiry. Otherwise, the materials and procedure for the explanation rating task were identical to the original experiment, except that participants in the replication are not allowed to skip questions without providing a response.
 	The main analysis will also be similar to that of the original manuscript, except the model in the replication will lack a between-subjects sample variable. Additionally, item effects will not be tested for brevity. Given the identical experimental materials and procedures, and the nearly identical analyses, there exists no fundamental differences between the original experiment and the replication that should prevent the current replication from being faithful to the original in terms of answering the main questions of interest.
 
-### Methods Addendum (Post Data Collection)
+## Methods Addendum (Post Data Collection)
 
 You can comment this section out prior to final report with data collection.
 
-#### Actual Sample
+### Actual Sample
   Sample size, demographics, data exclusions based on rules spelled out in analysis plan
 
-#### Differences from pre-data collection methods plan
+### Differences from pre-data collection methods plan
   Any differences from what was described as the original plan, or “none”.
 
 
-##Results
+## Results
 
 
-### Data preparation
+## Data preparation
 
-Data preparation following the analysis plan.
-	
 ```{r}
-
 #load libraries
 library(tidyverse)
 library(plotrix)
 library(csv)
-
+library(ggplot2)
+library(reshape2)
+library(lme4)
+library(sjPlot)
 ```
 
+This code reads in the data, deletes non-data rows and columns, and also records the total number of participants for reference.
 ```{r}
-
 #read data
 raw_data <- read.csv("~/Desktop/hopkins2016/data/hopkins2016_data.csv", header = TRUE)
 
@@ -113,26 +112,16 @@ raw_data <- raw_data[, -c(1:18)]
 #total number of participants
 unfiltered_total <- raw_data %>%
   nrow()
-
-#delete justification response columns
-#raw_data <- raw_data %>%
-  #select(-('P1.J.G.1':'S2.J.B.4'))
-
-#raw_data <- raw_data %>%
-  #select(-('P3.J.G.1':'S4.J.B.4'))
-
-
 ```
 
+This code excludes participants who failed either attention check, adds an ID number column, and records the total number of filtered and excluded participants for reference.
 ```{r}
-
 #exclude participants who failed attention check 1
 filtered_raw_data <- raw_data %>%
   filter(Slider1_1==0)
 
 filtered_raw_data <- filtered_raw_data %>%
   select(-Slider1_1)
-
 
 #exclude participants who failed attention check 2
 filtered_raw_data <- filtered_raw_data %>%
@@ -151,72 +140,23 @@ filtered_total = filtered_raw_data %>%
 
 #number of excluded participants
 num_excluded = unfiltered_total - filtered_total
-
 ```
 
+This code deletes demographic data that is unnecessary for analysis
 ```{r}
-#deleting this that could be included in the regression but are a pain to include for now
-#data_num <- data_num %>%
-  #select(-('Rigor_1':'Prestige_9'))
 data_num <- data_num %>%
   select(-('Year':'Feedback'))
-
 ```
 
-```{r, eval=FALSE}
-
-#create reference data frame to score supplementary answers
-correct_answers <- read.csv("~/Desktop/hopkins2016/data/correct_answers.csv", header = TRUE)
-
-```
-
-```{r, eval=FALSE}
-#score science literacy answers
-data_num$expdesgn2 <- data_num$expdesgn1
-
-for (item in names(correct_answers))
-{
-  item_string <- toString(item)
-  participant_answer <- data_num[[item_string]]
-  correct_answer <- correct_answers[[item_string]][1]
-  data_num[[item_string]] <- ifelse(participant_answer==correct_answer, 1, 0)
-}
-
-```
-
-```{r, eval=FALSE}
-#aggregate scores
-
-#nsf
-data_num <- data_num %>%
-  mutate(nsf.score = (odds1 + odds2 + expdesgn1 + expdesgn2 + hotcore + radioact + boyorgirl + lasers + electron + viruses + bigbang + condrift + evolved + earthsun + solarrev))
-
-#logic
-data_num <- data_num %>%
-  mutate(logic.score = (Logic1 + Logic2 + Logic3 + Logic4))
-
-#CRT
-data_num <- data_num %>%
-  mutate(crt.score = (CRT1 + CRT2 + CRT3 + CRT4))
-
-#delete individual item columns
-data_num <- data_num %>%
-  select(-('odds1':'Logic4'))
-
-data_num <- data_num %>%
-  select(-('CRT1':'CRT4'))
-
-```
-
+This code converts the data into long format with item and rating in columns
 ```{r}
 #convert to long format
 data_long <- data_num %>%
   pivot_longer(cols = 'P1.HG_1':'S4.RB_1', names_to = "full_item", values_to = "rating", values_drop_na=TRUE)
+```
 
-#get rid of empty rows
-data_long <- data_long %>%
-  filter(!(rating==''))
-
+This code breaks apart the full item name and separates the different components (scientific domain, item, and explanation quality) into separate columns. It then deletes the full item name column.
+```{r}
 #specify item attributes
 data_long <- data_long %>%
   mutate(science = substr(full_item, start=1, stop=1))
@@ -229,23 +169,26 @@ data_long <- data_long %>%
   
 data_long <- data_long %>%
   select(-full_item)
+```
 
+The item attributes were shortened in the full item name. This code renames those individual attributes as their full names for readability.
+```{r}
+#recode item names
 data_long$quality <- ifelse(data_long$quality=="G", "good", "bad")
+
 data_long$science <- ifelse(data_long$science=="P", "physics", data_long$science)
 data_long$science <- ifelse(data_long$science=="C", "chemistry", data_long$science)
 data_long$science <- ifelse(data_long$science=="B", "biology", data_long$science)
 data_long$science <- ifelse(data_long$science=="N", "neuroscience", data_long$science)
 data_long$science <- ifelse(data_long$science=="Y", "psychology", data_long$science)
 data_long$science <- ifelse(data_long$science=="S", "social", data_long$science)
-
-colnames(data_long)[colnames(data_long)=="Condition"] <- "condition"
 ```
 
+This code prepares the data frame for analysis by converting the ratings into integers and factoring the explanation levels, quality, and scientific domain for the mixed effects model.
 ```{r}
 #convert columns to intended data types for analysis
 data_long$rating <- as.integer(as.character(data_long$rating))
-#data_long$science <- as.factor(as.character(data$science))
-#data_long$quality <- as.factor(as.character(data$quality))
+
 data_long$science <- factor(data_long$science, 
                   levels = c("physics", "chemistry", "biology", "neuroscience", "psychology", "social"),
                   labels = c("physics", "chemistry", "biology", "neuroscience", "psychology", "social"))
@@ -257,25 +200,12 @@ data_long$condition <- factor(data_long$condition,
                   labels = c("horizontal", "reduction"))
 ```
 
-```{r}
-#load libraries for graphing and data analysis
-library(ggplot2)
-library(reshape2)
-library(lme4)
-library(gplots)
-library(psych)
-library(effects)
-library(ppcor)
-library(car)
-```
-
 ### Confirmatory analysis
 
-Mixed effects model, predicting explanation rating with explanation level (reductive vs horizontal), explanation quality (good vs bad), and scientific domain as predictors:
-
+This code further prepares the data for analysis by relevling it for the mixed effects model
 ```{r}
-data <- data_long
 #Read in and format data
+data <- data_long
 
 #Reorder levels of the factors to facilitate contrast coding in regressions:
 data$science <- relevel(data$science, ref = "social")
@@ -284,56 +214,67 @@ data$science <- relevel(data$science, ref = "neuroscience")
 data$science <- relevel(data$science, ref = "biology")
 data$science <- relevel(data$science, ref = "chemistry")
 data$science <- relevel(data$science, ref = "physics")
+```
 
+Backward difference coding for explanation quality and level and deviation coding for scientific domains
+```{r}
 #Backward difference coding; each level is compared to the mean of the one before it 
 contrasts(data$quality) <- matrix(c(-1/2,1/2), nrow=2)
 contrasts(data$condition) <- matrix(c(-1/2,1/2), nrow=2)
 
 #Deviation coding: each level is compared to the grand mean (physics is in the intercept)
 contrasts(data$science) <- matrix(c(-1,1,0,0,0,0,-1,0,1,0,0,0,-1,0,0,1,0,0,-1,0,0,0,1,0,-1,0,0,0,0,1), nrow=6)
-
-#########################################################
-#Results - Table 2
-
-explanations <- lmer(rating ~ (quality+condition+science)^2 + quality:condition + (1 | ID) + (quality | item), data = data)
-summary(explanations)
-confint(explanations, method="boot", level = .90)
-confint(explanations, method="boot", level = .95)
-
-#########################################################
-#Analyses by science - Table 3
-
-phys <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="physics"))
-summary(phys)
-confint(phys, method = "boot")
-
-chem <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="chemistry"))
-summary(chem)
-confint(chem, method="boot")
-
-bio <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="biology"))
-summary(bio)
-confint(bio, method="boot")
-
-neuro <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="neuroscience"))
-summary(neuro)
-confint(neuro, method = "boot")
-
-psych <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="psychology"))
-summary(psych)
-confint(psych, method="boot")
-
-soc <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="social"))
-summary(soc)
-confint(soc, method = "boot")
-
 ```
 
-Original results from Hopkins, Weisberg, & Taylor (2016):
-
+Main analysis: mixed effects model predicting explanation rating based on explanation level, quality, and scientific domain
 ```{r}
-#original graph
+#Mixed effects model aggregated across sciences
+explanations <- lmer(rating ~ (quality+condition+science)^2 + quality:condition + (1 | ID) + (quality | item), data = data)
+tab_model(explanations)
+```
+
+Mixed effects model for physics explanations:
+```{r}
+phys <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="physics"))
+tab_model(phys)
+```
+
+Mixed effects model for chemistry explanations:
+```{r}
+chem <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="chemistry"))
+tab_model(chem)
+```
+
+Mixed effects model for biology explanations:
+```{r}
+bio <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="biology"))
+tab_model(bio)
+```
+
+Mixed effects model for neuroscience explanations:
+```{r}
+neuro <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="neuroscience"))
+tab_model(neuro)
+```
+
+Mixed effects model for psychology explanations:
+```{r}
+psych <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="psychology"))
+tab_model(psych)
+```
+
+Mixed effects model for social science explanations:
+```{r}
+soc <- lmer(rating~condition + (1 | ID) + (1 | item), data = subset(data, science=="social"))
+tab_model(soc)
+```
+
+Explanation rating by explanation level, quality, and scientific domain for the MTurk sample from Hopkins, Weisberg, & Taylor (2016):
+```{r}
+#read original data
 original_data <- read.csv("~/Desktop/hopkins2016/data/original_hopkins2016_data.csv", header = TRUE)
+
+#relable science and explanation level values to their full names
 original_data$science <- ifelse(original_data$science=="phys", "physics", original_data$science)
 original_data$science <- ifelse(original_data$science=="2", "chemistry", original_data$science)
 original_data$science <- ifelse(original_data$science=="1", "biology", original_data$science)
@@ -343,11 +284,14 @@ original_data$science <- ifelse(original_data$science=="6", "social", original_d
 original_data$science <- ifelse(original_data$science=="6", "social", original_data$science)
 original_data$condition <- ifelse(original_data$condition=="H", "Horizontal", original_data$condition)
 original_data$condition <- ifelse(original_data$condition=="2", "Reductive", original_data$condition)
+
+#group data frame by explanation quality, level, and scientific domain
 original_grouped <- original_data %>%
   group_by(quality, condition, science) %>%
   summarise(avg_rating = mean(rating),
             sem_rating = std.error(rating))
 
+#plot bar graph faceted by scientific domain
 ggplot(original_grouped, aes(x=quality, y=avg_rating, fill=condition)) +
   geom_bar(position="dodge", stat="identity") + 
   scale_fill_brewer(palette="Set1") +
@@ -358,8 +302,7 @@ ggplot(original_grouped, aes(x=quality, y=avg_rating, fill=condition)) +
   theme(strip.text = element_text(size = 8, margin = margin()))
 ```
 
-Results of the current replication:
-
+Explanation rating by explanation level, quality, and scientific domain from the current replication:
 ```{r}
 #replication graph
 data <- data_long
@@ -378,18 +321,12 @@ ggplot(replication_grouped, aes(x=quality, y=avg_rating, fill=condition)) +
   theme(strip.text = element_text(size = 8, margin = margin()))
 ```
 
-*Side-by-side graph with original graph is ideal here*
+# Discussion
 
-###Exploratory analyses
-
-Any follow-up analyses desired (not required).  
-
-## Discussion
-
-### Summary of Replication Attempt
+## Summary of Replication Attempt
 
 Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
 
-### Commentary
+## Commentary
 
 Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
